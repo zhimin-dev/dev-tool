@@ -10,6 +10,7 @@
     <el-tab-pane label="模拟请求" v-if="isFull" name="sim"><Sim /></el-tab-pane>
     <el-tab-pane label="JsonToGo" name="jsonToGo"><JsonToGo /></el-tab-pane>
     <el-tab-pane label="HtmlShow" name="HtmlShow"><HtmlShow /></el-tab-pane>
+    <el-tab-pane label="Iptv" name="Iptv"><Iptv /></el-tab-pane>
   </el-tabs>
   </div>
 </template>
@@ -24,13 +25,14 @@ import Sim from './components/Sim.vue';
 import JsonToGo from './components/JsonToGo.vue';
 import HtmlShow from './components/Html.vue';
 import Link from './components/Link.vue';
+import Iptv from './components/Iptv.vue';
 
 export default {
   name: 'app',
   data() {
     return {
       nowType: 'time',
-      isFull: false,
+      isFull: true,
     };
   },
   created() {
@@ -49,6 +51,7 @@ export default {
     JsonToGo,
     HtmlShow,
     Link,
+    Iptv,
   },
 };
 </script>
