@@ -7,12 +7,10 @@
           <div class="normal-title">时间处理</div>
           <Time />
         </div>
-        <hr />
         <div class="normal-item">
           <div class="normal-title">计算器</div>
           <Cal />
         </div>
-        <hr />
         <div class="normal-item">
           <div class="normal-title">编解码</div>
           <Decode />
