@@ -64,7 +64,7 @@
 export default {
   data() {
     return {
-      linkList: [],
+      linkList: [{ url: 'https://regex101.com/', title: '正则' }, { url: 'http://github.com/zhimin-dev/chrome-extension', title: '本插件Github' }],
       showExport: false,
       exportJson: '',
       nowType: 0,

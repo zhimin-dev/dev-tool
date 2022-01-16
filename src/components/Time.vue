@@ -1,7 +1,8 @@
 <template>
   <div class="time-container">
     <div class="time">
-      <el-input v-model="nowTime" class="now-time now-unix-time" placeholder="当前时间"></el-input>
+      <el-input v-model="nowTime" size="mini" class="now-time now-unix-time" placeholder="当前时间">
+      </el-input>
       <el-input v-model="showTime" size="mini" class="now-time now-timestamp"
       placeholder="当前时间"></el-input>
       <el-switch v-model="stopTime" class="now-time-switch" active-text="暂停"
@@ -36,16 +37,16 @@
       <el-button size="mini" @click="unixToTime">时间戳转时间↑</el-button>
     </div>
     <div class="time">
-      <el-input v-model="customTime" class="now-time" placeholder="当前时间"></el-input>
+      <el-input size="mini" v-model="customTime" class="now-time" placeholder="当前时间"></el-input>
     </div>
-    <div class="time">
+    <!-- <div class="time">
       <div class="g-time">
         <div class="one-g-time" v-for="(value,index) in timeList" :key="index">
           <span class="one-g-country" v-text="value.country + ' ' + value.timeZone"></span>
           <div class="g-timestamp" v-text="value.time"></div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -164,7 +165,7 @@ export default {
   .time
     display: flex
     align-items: center
-    padding-bottom: 20px
+    padding-bottom: 5px
     font-size: 14px
     .g-time
       display: flex;
@@ -184,6 +185,7 @@ export default {
       display: flex
       flex-wrap: wrap
       padding-right: 10px
+      width: 300px
     .now-timestamp
       width: 180px
     .now-unix-time

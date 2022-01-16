@@ -7,17 +7,19 @@
       v-model="originalText">
     </el-input>
     <div class="btn-container">
-      <div>
+      <div class="btn-item">
           <el-button class="one-btn" size="mini" @click="urlEncode">UrlEncode</el-button>
-          <el-button class="one-btn" size="mini" @click="cnToUtf8">中文转UTF-8</el-button>
-          <el-button class="one-btn" size="mini" @click="cnToUnicode">中文转Unicode</el-button>
+          <el-button class="one-btn" size="mini" @click="urlDecode">UrlDecode</el-button>
       </div>
-      <div>
-        <el-button class="one-btn" size="mini" @click="urlDecode">UrlDecode</el-button>
-        <el-button class="one-btn" size="mini" @click="utf8ToCn">UTF-8转中文</el-button>
+      <div class="btn-item">
+          <el-button class="one-btn" size="mini" @click="cnToUtf8">中文转UTF-8</el-button>
+          <el-button class="one-btn" size="mini" @click="utf8ToCn">UTF-8转中文</el-button>
+      </div>
+      <div class="btn-item">
+        <el-button class="one-btn" size="mini" @click="cnToUnicode">中文转Unicode</el-button>
         <el-button class="one-btn" size="mini" @click="unicodeToCn">Unicode转中文</el-button>
       </div>
-      <div>
+      <div class="btn-item">
         <el-button class="one-btn" size="mini" @click="md5Fun">MD5</el-button>
       </div>
     </div>
@@ -82,8 +84,14 @@ export default {
 </script>
 <style lang="sass" scoped>
 .decode-container
+  width: 100%
   .btn-container
-    padding: 10px 0
+    display: flex
+    padding: 5Px 0
+    .btn-item
+      display: flex;
+      flex-direction: column;
+      margin-right: 5px
   .one-btn
-    margin-bottom: 10px
+    margin-left: 0
 </style>

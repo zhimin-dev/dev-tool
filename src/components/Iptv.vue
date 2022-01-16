@@ -27,6 +27,7 @@
       </div>
       <div>
           <el-table
+            v-if="list.length > 0"
             ref="dataTable"
             @selection-change="handleSelectionChange"
             :data="list"
@@ -144,8 +145,11 @@ export default {
       for (let i = 0; i < this.list.length; i += 1) {
         this.nowIsCheck = true;
         fetchGet(this.list[i].url).then((res) => {
-          console.log(res);
-          this.list[i].status = 1;
+          if (this.checkFirstLineIsRight(res.data)) {
+            this.list[i].status = 1;
+          } else {
+            throw new Error('first line is not m3u');
+          }
           this.nowCheckCount += 1;
         }).catch((err) => {
           console.log(err);
@@ -158,10 +162,13 @@ export default {
       if (this.source !== '') {
         this.list = [];
         const spiStr = this.source.split('\n');
-        this.firstTitle = spiStr[0];
+        this.firstTitle = '';
+        if (spiStr.length > 0) {
+          [this.firstTitle] = spiStr;
+        }
         if (spiStr.length > 1) {
           const len = (spiStr.length - 1) / 2;
-          for (let i = 1; i < len; i += 1) {
+          for (let i = 0; i < len; i += 1) {
             const index = 1 + (i * 2);
             this.parseRowToData(spiStr[index], spiStr[index + 1]);
           }
@@ -196,7 +203,7 @@ export default {
         regex = /tvg-id="(.*)"/mg;
       }
       let m;
-      let value;
+      let value = '';
       while ((m = regex.exec(str)) !== null) {
         if (m.index === regex.lastIndex) {
           regex.lastIndex++;
@@ -207,7 +214,22 @@ export default {
           }
         });
       }
-      return value.split('" ')[0];
+      if (value !== '') {
+        return value.split('" ')[0];
+      }
+      return '';
+    },
+    checkFirstLineIsRight(content) {
+      const contextExp = content.split('\n');
+      if (contextExp.length > 0) {
+        const firstLine = contextExp[0];
+        console.log(firstLine);
+        if (firstLine.replace('#EXTM3U', '') === firstLine) {
+          return false;
+        }
+        return true;
+      }
+      return false;
     },
     parseName(name) {
       const row = name.split(',');

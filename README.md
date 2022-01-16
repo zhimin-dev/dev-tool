@@ -6,6 +6,10 @@
 - it has some useful functions you will use it frequently
 - you can add your custom script to some websites
 
+## environment
+
+This project need node <= `15.14.0`, we recommend you use `15.14.0` to develop
+
 ## Add your custom script
 
 1. find `src/script/content/`folder
@@ -30,8 +34,3 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
-## changelog
-
-- 09-20 add `global time` in `time conversion`、`text decoder`, make `content_script.js` more developed
-- 09-19 add `time conversion`、`json formater`, `text gegex`

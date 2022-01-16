@@ -5,7 +5,6 @@
         type="textarea"
         placeholder="请输入html"
         v-model="showHtml"
-        :autosize="true"
       ></el-input>
     </div>
     <div class="show-json" v-html="showHtml"></div>
@@ -23,13 +22,4 @@ export default {
 </script>
 <style lang="sass" scoped>
 .full-width
-  display: flex
-  flex-wrap: wrap
-  justify-content: space-between
-  .or-json
-    width: 48%
-    margin-right: 10px
-  .show-json
-    width: 48%
-    padding-top: 0
 </style>
