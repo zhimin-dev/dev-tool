@@ -42,7 +42,7 @@ jobs:
           git config --global user.name meow.zang
           mkdir result
           mv css/ result/css/
-          mv .gitignore result/.gitignore
+          mv .gitignore result/
           mv dist/ result/dist/
           mv images/ result/images/
           mv js/ result/js/
