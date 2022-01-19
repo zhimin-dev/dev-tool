@@ -4,8 +4,6 @@
            <div v-if="!showExport">
                 <el-button icon="el-icon-edit" size="mini" v-if="nowType !== 0"
                 @click="cancelLinkFun">取消</el-button>
-                <el-button icon="el-icon-circle-plus-outline" size="mini"
-                @click="addLinkFun" v-if="nowType === 0">添加</el-button>
                 <el-button icon="el-icon-success" size="mini"
                 @click="saveLinkFun" v-if="nowType === 1">保存</el-button>
                 <el-button icon="el-icon-edit" size="mini"
@@ -34,31 +32,20 @@
         <el-table-column
             label="链接名">
             <template slot-scope="scope">
-                <div v-if="!scope.row.canEdit">
-                    <a :href="scope.row.url" target="__blank">
-                        {{scope.row.title}}<i class="el-icon-s-promotion"></i></a>
-                </div>
-                <div v-else>
-                    <el-input size="mini" v-model="scope.row.title" placeholder="请输入标题"></el-input>
-                </div>
+              <el-input size="mini" v-model="scope.row.title" placeholder="请输入标题"></el-input>
             </template>
         </el-table-column>
         <el-table-column
             label="url">
             <template slot-scope="scope">
-                <div v-if="!scope.row.canEdit">
-                        {{scope.row.url}}
-                </div>
-                <div v-else>
-                    <el-input size="mini" v-model="scope.row.url" placeholder="请输入链接"></el-input>
-                </div>
+                <el-input size="mini" v-model="scope.row.url" placeholder="请输入链接"></el-input>
             </template>
         </el-table-column>
         <el-table-column
             width="90"
             label="操作" v-if="showDelete">
             <template slot-scope="scope">
-                <div v-if="scope.row.canEdit" @click="deleteRowFun(scope.$index)"
+                <div @click="deleteRowFun(scope.$index)"
                 style="cursor: pointer;"><i class="el-icon-delete"></i></div>
             </template>
         </el-table-column>
@@ -81,6 +68,7 @@ export default {
       showExport: false,
       showImport: false,
       exportJson: '',
+      tempLink: [],
       nowType: 0,
       showDelete: false,
       mode: 0, // 0 链接 1 显示表格
@@ -134,26 +122,19 @@ export default {
       }
     },
     getEmptyObj() {
-      return this.setObj('', '', true);
+      return this.setObj('', '');
     },
-    setObj(title, url, canEdit) {
+    setObj(title, url) {
       return {
         title,
         url,
-        canEdit,
       };
-    },
-    addLinkFun() {
-      this.nowType = 1;
-      this.linkList.push(this.getEmptyObj());
-      this.mode = 1;
     },
     saveLinkFun() {
       this.showDelete = false;
       this.nowType = 0;
       const newList = [];
       for (let i = 0; i < this.linkList.length; i += 1) {
-        this.linkList[i].canEdit = false;
         if (this.linkList[i].title !== '' || this.linkList[i].url !== '') {
           newList.push(this.linkList[i]);
         }
@@ -163,10 +144,9 @@ export default {
     },
     editLinkFun() {
       this.showDelete = true;
+      this.tempLink = this.linkList.slice();
+      this.linkList.push(this.getEmptyObj());
       this.nowType = 1;
-      for (let i = 0; i < this.linkList.length; i += 1) {
-        this.linkList[i].canEdit = true;
-      }
       this.mode = 1;
     },
     deleteRowFun(index) {
@@ -174,13 +154,9 @@ export default {
       this.mode = 1;
     },
     cancelLinkFun() {
-      if (this.nowType === 1 && !this.showDelete) {
-        this.linkList.splice(this.linkList.length - 1, 1);
-      }
+      this.linkList = this.tempLink;
+      this.tempLink = [];
       this.nowType = 0;
-      for (let i = 0; i < this.linkList.length; i += 1) {
-        this.linkList[i].canEdit = false;
-      }
       this.showDelete = false;
       this.mode = 0;
     },
