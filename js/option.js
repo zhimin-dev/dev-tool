@@ -1,1 +1,1 @@
-sessionStorage.setItem("isOption", "1");
+sessionStorage.setItem('isOption', '1');

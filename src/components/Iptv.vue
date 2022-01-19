@@ -151,8 +151,7 @@ export default {
             throw new Error('first line is not m3u');
           }
           this.nowCheckCount += 1;
-        }).catch((err) => {
-          console.log(err);
+        }).catch(() => {
           this.list[i].status = 2;
           this.nowCheckCount += 1;
         });
@@ -206,7 +205,7 @@ export default {
       let value = '';
       while ((m = regex.exec(str)) !== null) {
         if (m.index === regex.lastIndex) {
-          regex.lastIndex++;
+          regex.lastIndex += 1;
         }
         m.forEach((match, groupIndex) => {
           if (groupIndex === 1) {
@@ -223,7 +222,6 @@ export default {
       const contextExp = content.split('\n');
       if (contextExp.length > 0) {
         const firstLine = contextExp[0];
-        console.log(firstLine);
         if (firstLine.replace('#EXTM3U', '') === firstLine) {
           return false;
         }

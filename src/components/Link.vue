@@ -10,14 +10,25 @@
                 @click="saveLinkFun" v-if="nowType === 1">保存</el-button>
                 <el-button icon="el-icon-edit" size="mini"
                   v-if="linkList.length > 0 && nowType === 0"
-                @click="editLinkFun">编辑</el-button>
+                @click="editLinkFun">添加/编辑</el-button>
             </div>
             <div style="margin-left: 20px;" v-if="linkList.length > 0 && nowType === 0">
+              <el-button icon="el-icon-s-operation" size="mini"
+                @click="importJsonFun">导入链接</el-button>
                 <el-button icon="el-icon-s-operation" size="mini"
                 @click="exportJsonFun">导出链接</el-button>
             </div>
        </div>
+       <div class="list-link" v-if="mode == 0">
+         <div class="list-link-item" v-for="(value, index) in linkList" :key="index">
+            <a :href="value.url" target="__blank">
+              {{value.title}}
+              <i class="el-icon-s-promotion"></i>
+            </a>
+         </div>
+       </div>
         <el-table
+        v-if="mode == 1"
         :data="linkList"
         style="width: 100%">
         <el-table-column
@@ -52,12 +63,14 @@
             </template>
         </el-table-column>
         </el-table>
-        <el-input
-            type="textarea"
-            :rows="2"
-            v-if="showExport"
-            v-model="exportJson">
-        </el-input>
+        <div v-if="showExport || showImport" class="import-area">
+          <el-input
+              type="textarea"
+              autosize="true"
+              v-model="exportJson">
+          </el-input>
+          <el-button size="mini" v-if="showImport" @click="doImport">点击导入</el-button>
+        </div>
     </div>
 </template>
 <script>
@@ -66,9 +79,11 @@ export default {
     return {
       linkList: [{ url: 'https://regex101.com/', title: '正则' }, { url: 'http://github.com/zhimin-dev/chrome-extension', title: '本插件Github' }],
       showExport: false,
+      showImport: false,
       exportJson: '',
       nowType: 0,
       showDelete: false,
+      mode: 0, // 0 链接 1 显示表格
     };
   },
   created() {
@@ -84,8 +99,33 @@ export default {
   methods: {
     saveLink() {
       localStorage.setItem('linkUrl', JSON.stringify(this.linkList));
+      this.mode = 0;
+    },
+    doImport() {
+      const row = this.exportJson;
+      try {
+        const list = JSON.parse(row);
+        for (let i = 0; i < list.length; i += 1) {
+          if (list[i].url !== undefined && list[i].title !== undefined) {
+            this.linkList.push(this.setObj(list[i].title, list[i].url, true));
+          }
+        }
+        this.saveLink();
+        this.exportJson = '';
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    importJsonFun() {
+      this.showExport = false;
+      if (!this.showImport) {
+        this.showImport = true;
+      } else {
+        this.showImport = false;
+      }
     },
     exportJsonFun() {
+      this.showImport = false;
       if (!this.showExport) {
         this.showExport = true;
         this.exportJson = JSON.stringify(this.linkList);
@@ -94,15 +134,19 @@ export default {
       }
     },
     getEmptyObj() {
+      return this.setObj('', '', true);
+    },
+    setObj(title, url, canEdit) {
       return {
-        title: '',
-        url: '',
-        canEdit: true,
+        title,
+        url,
+        canEdit,
       };
     },
     addLinkFun() {
       this.nowType = 1;
       this.linkList.push(this.getEmptyObj());
+      this.mode = 1;
     },
     saveLinkFun() {
       this.showDelete = false;
@@ -123,9 +167,11 @@ export default {
       for (let i = 0; i < this.linkList.length; i += 1) {
         this.linkList[i].canEdit = true;
       }
+      this.mode = 1;
     },
     deleteRowFun(index) {
       this.linkList.splice(index, 1);
+      this.mode = 1;
     },
     cancelLinkFun() {
       if (this.nowType === 1 && !this.showDelete) {
@@ -136,7 +182,21 @@ export default {
         this.linkList[i].canEdit = false;
       }
       this.showDelete = false;
+      this.mode = 0;
     },
   },
 };
 </script>
+<style lang="sass" scope>
+.list-link
+    display: flex
+    flex-wrap: wrap;
+    .list-link-item
+      margin-right: 15px
+      padding: 10px
+      a
+        color: #000
+        text-decoration: none
+.import-area
+  display: flex;
+</style>

@@ -8,10 +8,9 @@
         v-model="orJson"
       ></el-input>
     </div>
-    <div class="show-json">
+    <div class="show-json" v-if="showJson !== ''">
       <el-input
         type="textarea"
-        v-if="orJson !== ''"
         placeholder="显示的json"
         v-model="showJson"
         :autosize="true"

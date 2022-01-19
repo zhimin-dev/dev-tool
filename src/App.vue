@@ -22,7 +22,7 @@
     <el-tab-pane label="模拟请求" v-if="isFull" name="sim"><Sim /></el-tab-pane>
     <el-tab-pane label="JsonToGo" name="jsonToGo"><JsonToGo /></el-tab-pane>
     <el-tab-pane label="HtmlShow" name="HtmlShow"><HtmlShow /></el-tab-pane>
-    <el-tab-pane label="Iptv"  v-if="isFull" name="Iptv"><Iptv /></el-tab-pane>
+    <el-tab-pane label="Iptv Checker"  v-if="isFull" name="Iptv"><Iptv /></el-tab-pane>
   </el-tabs>
   </div>
 </template>
@@ -79,10 +79,6 @@ export default {
 }
 .fullWidth {
   width: 100%;
-}
-
-h1, h2 {
-  font-weight: normal;
 }
 
 ul {
