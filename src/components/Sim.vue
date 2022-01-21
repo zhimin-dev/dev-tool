@@ -80,6 +80,7 @@ export default {
       headers: [],
       activeTab: 'body',
       postData: '',
+      resultResponseHeader: [],
     };
   },
   methods: {

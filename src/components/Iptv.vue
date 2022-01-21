@@ -145,7 +145,7 @@ export default {
       for (let i = 0; i < this.list.length; i += 1) {
         this.nowIsCheck = true;
         fetchGet(this.list[i].url).then((res) => {
-          if (this.checkFirstLineIsRight(res.data)) {
+          if (this.checkFirstLineIsRight(res)) {
             this.list[i].status = 1;
           } else {
             throw new Error('first line is not m3u');
