@@ -7,10 +7,11 @@
             placeholder="source"
             @change="hanldeTrans"
             v-model="source"></el-input>
-        <!-- <el-button size="mini" type="success" @click="hanldeTrans">点击转换</el-button> -->
-        <el-button size="mini" type="info" @click="getData" v-if="selectedList.length > 0">
+        <el-button size="mini" type="info" @click="getData"
+          v-if="selectedList.length > 0 || (nowIsSort && this.list.length > 0)">
           下载json
         </el-button>
+        <el-button size="mini" type="info" @click="doSort">整理源</el-button>
         <el-button size="mini" @click="fetchData" v-if="this.list.length > 0 && !nowIsCheck">
           检查链接是否正常
         </el-button>
@@ -25,9 +26,16 @@
             :rows="2"
             v-model="selectedData"></el-input>
       </div>
+      <div class="sort-container" v-show="nowIsSort">
+        <ul id="items" class="sort-ul">
+          <li class="item-li" v-for="(value, index) in list" :key="index">
+            {{index+1}}. {{value.name}} <el-link @click="doDelete(index)">删除</el-link>
+          </li>
+        </ul>
+      </div>
       <div>
           <el-table
-            v-if="list.length > 0"
+            v-if="list.length > 0 && !nowIsSort"
             ref="dataTable"
             @selection-change="handleSelectionChange"
             :data="list"
@@ -54,7 +62,6 @@
                 label="tvg-language">
                 <template slot-scope="scope">
                     <div>{{scope.row.name}}</div>
-                    <!-- <img height="20" :src="scope.row.tvgLogo" > -->
                 </template>
             </el-table-column>
             <el-table-column
@@ -88,6 +95,7 @@
   </div>
 </template>
 <script>
+import Sortable from 'sortablejs';
 import { fetchGet } from '../utils/axios';
 
 export default {
@@ -101,6 +109,7 @@ export default {
       selectedList: [],
       nowCheckCount: 0,
       nowIsCheck: false,
+      nowIsSort: false,
     };
   },
   watch: {
@@ -110,17 +119,54 @@ export default {
       }
     },
   },
+  mounted() {
+    this.parseList();
+  },
   methods: {
+    doDelete(index) {
+      this.list.splice(index, 1);
+    },
+    doSort() {
+      if (this.nowIsSort) {
+        this.nowIsSort = false;
+      } else {
+        this.nowIsSort = true;
+        this.enableSort();
+      }
+    },
+    enableSort() {
+      const el = document.getElementById('items');
+      const _this = this;
+      Sortable.create(el, {
+        onEnd({ newIndex, oldIndex }) {
+          const current = _this.list.splice(oldIndex, 1)[0];
+          _this.list.splice(newIndex, 0, current);
+          const rows = _this.list;
+          _this.list = [];
+          setTimeout(() => {
+            _this.list = rows;
+          }, 5);
+        },
+      });
+    },
     handleSelectionChange(val) {
       this.selectedList = val;
       this.selectedData = '';
     },
     getData() {
-      let name = `${this.firstTitle}\n`;
-      for (let i = 0; i < this.selectedList.length; i += 1) {
-        name += `${this.selectedList[i].originalData}\n`;
+      if (this.nowIsSort) {
+        let name = `${this.firstTitle}\n`;
+        for (let i = 0; i < this.list.length; i += 1) {
+          name += `${this.list[i].originalData}\n`;
+        }
+        this.selectedData = name;
+      } else {
+        let name = `${this.firstTitle}\n`;
+        for (let i = 0; i < this.selectedList.length; i += 1) {
+          name += `${this.selectedList[i].originalData}\n`;
+        }
+        this.selectedData = name;
       }
-      this.selectedData = name;
     },
     autoSelect() {
       for (let i = 0; i < this.list.length; i += 1) {
@@ -241,4 +287,14 @@ export default {
 </script>
 <style lang="sass" scoped>
 .iptv-container
+  .sort-container
+    .sort-ul
+      display: flex;
+      flex-direction: column;
+      .item-li
+        justify-content: space-between;
+        width: 400px
+        padding: 10px;
+        display: flex;
+        border-bottom: 1px solid #000
 </style>
