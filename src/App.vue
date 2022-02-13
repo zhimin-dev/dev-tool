@@ -21,6 +21,7 @@
     <el-tab-pane label="链接" name="link"><Link /></el-tab-pane>
     <el-tab-pane label="模拟请求" v-if="isFull" name="sim"><Sim /></el-tab-pane>
     <el-tab-pane label="JsonToGo" name="jsonToGo"><JsonToGo /></el-tab-pane>
+    <el-tab-pane label="SqlToModel" name="sqlToModel"><SqlToModel /></el-tab-pane>
     <el-tab-pane label="HtmlShow" name="HtmlShow"><HtmlShow /></el-tab-pane>
     <el-tab-pane label="Iptv Checker"  v-if="isFull" name="Iptv"><Iptv /></el-tab-pane>
   </el-tabs>
@@ -37,12 +38,13 @@ import JsonToGo from './components/JsonToGo.vue';
 import HtmlShow from './components/Html.vue';
 import Link from './components/Link.vue';
 import Iptv from './components/Iptv.vue';
+import SqlToModel from './components/SqlToModel.vue';
 
 export default {
   name: 'app',
   data() {
     return {
-      nowType: 'normal',
+      nowType: 'sqlToModel',
       isFull: false,
     };
   },
@@ -62,6 +64,7 @@ export default {
     HtmlShow,
     Link,
     Iptv,
+    SqlToModel,
   },
 };
 </script>
