@@ -44,7 +44,7 @@ export default {
   name: 'app',
   data() {
     return {
-      nowType: 'sqlToModel',
+      nowType: 'normal',
       isFull: false,
     };
   },
