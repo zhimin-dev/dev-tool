@@ -1,12 +1,13 @@
 <template>
   <div class="json-container">
     <div class="json-text">
-      <el-input type="textarea" rows=2 placeholder="请输入sql创建语句"
+      <el-input type="textarea" rows=4 placeholder="请输入sql创建语句"
       @change="inputJson" v-model="jsonText">
       </el-input>
     </div>
     <div class="show-go" v-if="goStruct !== ''">
-      <el-input type="textarea" rows=8 placeholder="显示的GoStruct" v-model="goStruct"></el-input>
+      <el-input type="textarea" autosize="true" placeholder="显示的GoStruct"
+      v-model="goStruct"></el-input>
     </div>
   </div>
 </template>
@@ -23,7 +24,7 @@ export default {
   },
   methods: {
     inputJson() {
-      sqlStrToGoTemplate(this.jsonText);
+      this.goStruct = sqlStrToGoTemplate(this.jsonText);
     },
   },
 };
