@@ -18,12 +18,19 @@ function containStr(name, val) {
   return false;
 }
 
+function isTimeType(type) {
+  if (containStr(type, 'date') || containStr(type, 'datetime') || containStr(type, 'timestamp')) {
+    return true;
+  }
+  return false;
+}
+
 function sqlTypeToGoType(type) {
   let isContainUsign = false;
   if (containStr(type, 'unsigned')) {
     isContainUsign = true;
   }
-  if (containStr(type, 'varchar')) {
+  if (containStr(type, 'varchar') || containStr(type, 'text')) {
     return 'string';
   }
   if (containStr(type, 'int')) {
@@ -32,6 +39,15 @@ function sqlTypeToGoType(type) {
     }
     return 'uint64';
   }
+  if (containStr(type, 'float')) {
+    return 'float64';
+  }
+  if (containStr(type, 'decimal')) {
+    return 'float64';
+  }
+  if (isTimeType(type)) {
+    return 'time.Time';
+  }
   return 'unknown';
 }
 
@@ -39,26 +55,36 @@ function sqlToModel(data) {
   const dbName = data.tableName;
   const dbNameStr = dbNameToCamelCase(dbName);
   const packageName = 'db';
-  const importPackages = ['context',
-    'github.com/jinzhu/gorm',
-    'pkg.poizon.com/golang/go-common/mysql'];
+  const importPackages = [];
   let importPackageStr = '';
-  importPackages.map((val) => {
-    importPackageStr += `"${val}"\n`;
-  });
   let columsStr = '';
+  let isTime = false;
   data.columns.map((val) => {
     let defaultStr = '';
-    if (val.default !== undefined && val.default !== 'NULL') {
+    if (val.default !== undefined && val.default !== 'NULL' && val.default !== '') {
       defaultStr = `;default:${val.default}`;
     }
-    columsStr += `  ${dbNameToCamelCase(val.name)} ${sqlTypeToGoType(val.type)} \`gorm:"column:${val.name}${defaultStr}" json:"${val.name}"\`\n`;
+    const goType = sqlTypeToGoType(val.type);
+    if (!isTime && isTimeType(val.type)) {
+      isTime = true;
+    }
+    columsStr += `  ${dbNameToCamelCase(val.name)} ${goType} \`gorm:"column:${val.name}${defaultStr}" json:"${val.name}"\`\n`;
   });
+  if (isTime) {
+    importPackages.push('time');
+  }
+  let importStr = '';
+  if (importPackages.length > 0) {
+    importPackages.map((val) => {
+      importPackageStr += `"${val}"\n`;
+    });
+    importStr = `import (
+  ${importPackageStr}
+)`;
+  }
   const resultStr = `
 package ${packageName}
-import (
-${importPackageStr}
-)
+${importStr}
 var New${dbNameStr} ${dbNameStr}Model
 type ${dbNameStr}Model struct {
 ${columsStr}
