@@ -3,6 +3,9 @@ function ucFirst(val) {
 }
 
 function dbNameToCamelCase(name) {
+  if (name === undefined) {
+    return '';
+  }
   const row = [];
   const re = name.split('_');
   re.map((val) => {
@@ -82,10 +85,10 @@ function sqlToModel(data) {
   ${importPackageStr}
 )`;
   }
-  const resultStr = `
-package ${packageName}
+  const resultStr = `package ${packageName}
 ${importStr}
 var New${dbNameStr} ${dbNameStr}Model
+
 type ${dbNameStr}Model struct {
 ${columsStr}
 }
@@ -93,14 +96,13 @@ func (*${dbNameStr}Model) TableName() string {
   return "${dbName}"
 }
 `;
-  console.log(resultStr);
   return resultStr;
 }
 
 // 解析sql表明等基础信息
 function sqlStrToGoTemplate(str) {
   // CREATE TABLE `(.*)`\s\(([\d\D]*)\)\sENGINE=(.*)\sAUTO_INCREMENT=(\d+)\s(\w+)\sCHARSET=(\w+)\s(COLLATE=\w+)*
-  const regex = /CREATE TABLE `(.*)`\s\(([\d\D]*)\)\sENGINE=(.*)\sAUTO_INCREMENT=(\d+)\s(\w+)\sCHARSET=(\w+)\s(COLLATE=\w+)*/gm;
+  const regex = /CREATE TABLE `(.*)`\s\(([\d\D]*)\)\sENGINE=(.*)\s(AUTO_INCREMENT=(.*)\s)*(\w+)\sCHARSET=(\w+)\s(COLLATE=\w+)*/gm;
   // `(.*)`\s(\w+[\((\d+)\)]*[\sunsigned\s]*)([NOT\s[NULL\s]*]*)(DEFAULT\s([\'](.*?)[\']|NULL)\s)*(AUTO_INCREMENT\s)*(COMMENT\s[\'](.*)[\'])*
   // const columnRegex = /`(.*)`\s(\w+[\((\d+)\)]*[\sunsigned\s]*)([NOT\s[NULL\s]*]*)(DEFAULT\s([\'](.*?)[\']|NULL)\s)*(AUTO_INCREMENT\s)*(COMMENT\s[\'](.*)[\'])*/gm;
   let m;
@@ -150,6 +152,7 @@ function sqlStrColumnToEachColumn(data) {
     });
   });
   tableInfo.columns = columnData;
+  console.log(tableInfo);
   return sqlToModel(tableInfo);
 }
 
