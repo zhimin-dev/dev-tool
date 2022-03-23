@@ -152,7 +152,6 @@ function sqlStrColumnToEachColumn(data) {
     });
   });
   tableInfo.columns = columnData;
-  console.log(tableInfo);
   return sqlToModel(tableInfo);
 }
 

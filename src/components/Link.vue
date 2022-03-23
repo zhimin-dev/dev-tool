@@ -1,6 +1,6 @@
 <template>
     <div>
-       <div style="display: flex;justify-content: flex-end;">
+       <div style="display: flex;justify-content: flex-end;" v-if="!hideMenuBar">
            <div v-if="!showExport">
                 <el-button icon="el-icon-edit" size="mini" v-if="nowType !== 0"
                 @click="cancelLinkFun">取消</el-button>
@@ -62,6 +62,9 @@
 </template>
 <script>
 export default {
+  props: {
+    hideMenuBar: Boolean,
+  },
   data() {
     return {
       linkList: [{ url: 'https://regex101.com/', title: '正则' }, { url: 'http://github.com/zhimin-dev/chrome-extension', title: '本插件Github' }],

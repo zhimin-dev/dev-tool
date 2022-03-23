@@ -15,6 +15,10 @@
           <div class="normal-title">编解码</div>
           <Decode />
         </div>
+        <div class="normal-item">
+          <div class="normal-title">链接</div>
+          <Link hideMenuBar=true />
+        </div>
       </div>
     </el-tab-pane>
     <el-tab-pane label="Json格式化" name="json"><Json :isFull = "isFull"/></el-tab-pane>
@@ -23,7 +27,6 @@
     <el-tab-pane label="JsonToGo" name="jsonToGo"><JsonToGo /></el-tab-pane>
     <el-tab-pane label="SqlToModel" name="sqlToModel"><SqlToModel /></el-tab-pane>
     <el-tab-pane label="HtmlShow" name="HtmlShow"><HtmlShow /></el-tab-pane>
-    <el-tab-pane label="Iptv Checker"  v-if="isFull" name="Iptv"><Iptv /></el-tab-pane>
   </el-tabs>
   </div>
 </template>
@@ -37,7 +40,6 @@ import Sim from './components/Sim.vue';
 import JsonToGo from './components/JsonToGo.vue';
 import HtmlShow from './components/Html.vue';
 import Link from './components/Link.vue';
-import Iptv from './components/Iptv.vue';
 import SqlToModel from './components/SqlToModel.vue';
 
 export default {
@@ -63,7 +65,6 @@ export default {
     JsonToGo,
     HtmlShow,
     Link,
-    Iptv,
     SqlToModel,
   },
 };
