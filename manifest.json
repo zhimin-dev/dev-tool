@@ -2,7 +2,7 @@
   "name": "知敏工具",
   "description": "This is zhimin chrome extension",
   "version": "0.0.1",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "permissions": [
     "alarms", 
     "tabs", 
@@ -15,7 +15,7 @@
 		"storage"
   ],
   "background": {
-    "page": "background.html"
+    "service_worker": "js/background.js"
   },
   "icons":
 	{
@@ -31,7 +31,7 @@
 		}
   ],
   "options_page": "options.html",
-  "browser_action": {
+  "action": {
     "default_icon" : "images/icon.png",
     "default_title": "知敏工具",
     "default_popup": "index.html"

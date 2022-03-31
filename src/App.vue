@@ -22,7 +22,8 @@
       </div>
     </el-tab-pane>
     <el-tab-pane label="Json格式化" name="json"><Json :isFull = "isFull"/></el-tab-pane>
-    <el-tab-pane label="链接" name="link"><Link /></el-tab-pane>
+    <el-tab-pane label="提醒" name="link"><Notice /></el-tab-pane>
+    <el-tab-pane label="链接" name="notice"><Link /></el-tab-pane>
     <el-tab-pane label="模拟请求" v-if="isFull" name="sim"><Sim /></el-tab-pane>
     <el-tab-pane label="JsonToGo" name="jsonToGo"><JsonToGo /></el-tab-pane>
     <el-tab-pane label="SqlToModel" name="sqlToModel"><SqlToModel /></el-tab-pane>
@@ -41,6 +42,7 @@ import JsonToGo from './components/JsonToGo.vue';
 import HtmlShow from './components/Html.vue';
 import Link from './components/Link.vue';
 import SqlToModel from './components/SqlToModel.vue';
+import Notice from './components/Notice.vue';
 
 export default {
   name: 'app',
@@ -66,6 +68,7 @@ export default {
     HtmlShow,
     Link,
     SqlToModel,
+    Notice,
   },
 };
 </script>
