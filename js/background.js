@@ -1,10 +1,3 @@
-setInterval(() => {
-  const date = new Date();
-  const hour = date.getHours();
-  const minute = date.getMinutes();
-  noticeAlert(hour, minute);
-}, 60000);
-
 // 发送闹钟提醒
 function noticeAlert(hour, minute) {
   chrome.storage.local.get(['noticeList'], (result) => {
@@ -12,9 +5,8 @@ function noticeAlert(hour, minute) {
     if (res !== undefined && res !== null && res !== '') {
       try {
         const rows = JSON.parse(res);
-        console.log(rows);
         for (let i = 0; i < rows.length; i += 1) {
-          if (rows[i].hour === hour || rows[i].hour === -1) {
+          if (parseInt(rows[i].hour, 10) === hour || parseInt(rows[i].hour, 10) === -1) {
             if (parseInt(rows[i].minute, 10) === minute) {
               chrome.notifications.create(null, {
                 type: 'basic',
@@ -31,3 +23,11 @@ function noticeAlert(hour, minute) {
     }
   });
 }
+
+chrome.alarms.create({ periodInMinutes: 1 });
+chrome.alarms.onAlarm.addListener(() => {
+  const date = new Date();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  noticeAlert(hour, minute);
+});
