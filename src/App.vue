@@ -21,28 +21,26 @@
         </div>
       </div>
     </el-tab-pane>
-    <el-tab-pane label="Json格式化" name="json"><Json :isFull = "isFull"/></el-tab-pane>
     <el-tab-pane label="提醒" name="link"><Notice /></el-tab-pane>
-    <el-tab-pane label="链接" name="notice"><Link /></el-tab-pane>
+    <el-tab-pane label="链接" name="notice"><Link hideMenuBar=false /></el-tab-pane>
     <el-tab-pane label="模拟请求" v-if="isFull" name="sim"><Sim /></el-tab-pane>
-    <el-tab-pane label="JsonToGo" name="jsonToGo"><JsonToGo /></el-tab-pane>
+    <el-tab-pane label="JsonStuff" name="jsonStuff"><JsonStuff :isFull = "isFull" /></el-tab-pane>
     <el-tab-pane label="SqlToModel" name="sqlToModel"><SqlToModel /></el-tab-pane>
-    <el-tab-pane label="HtmlShow" name="HtmlShow"><HtmlShow /></el-tab-pane>
+    <el-tab-pane label="HtmlShow" v-if="isFull" name="HtmlShow"><HtmlShow /></el-tab-pane>
   </el-tabs>
   </div>
 </template>
 
 <script>
 import Time from './components/Time.vue';
-import Json from './components/Json.vue';
 import Decode from './components/Decode.vue';
 import Cal from './components/Cal.vue';
 import Sim from './components/Sim.vue';
-import JsonToGo from './components/JsonToGo.vue';
 import HtmlShow from './components/Html.vue';
 import Link from './components/Link.vue';
 import SqlToModel from './components/SqlToModel.vue';
 import Notice from './components/Notice.vue';
+import JsonStuff from './components/JsonStuff.vue';
 
 export default {
   name: 'app',
@@ -60,15 +58,14 @@ export default {
   },
   components: {
     Time,
-    Json,
     Decode,
     Cal,
     Sim,
-    JsonToGo,
     HtmlShow,
     Link,
     SqlToModel,
     Notice,
+    JsonStuff,
   },
 };
 </script>
