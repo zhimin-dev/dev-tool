@@ -12,7 +12,8 @@
     "notifications",
     "webRequest",
     "webRequestBlocking", 
-		"storage"
+		"storage",
+    "http://*/"
   ],
   "background": {
     "service_worker": "js/background.js"

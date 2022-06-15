@@ -31,3 +31,30 @@ chrome.alarms.onAlarm.addListener(() => {
   const minute = date.getMinutes();
   noticeAlert(hour, minute);
 });
+
+function request_proxy({ url, method, data }) {
+  const XHR = new XMLHttpRequest();
+  XHR.open(method, url);
+  XHR.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+  XHR.send(data);
+  XHR.onreadystatechange = function () {
+    if (XHR.readyState === 4) {
+      console.log(XHR.responseText);
+    }
+  };
+}
+
+chrome.runtime.onMessage.addListener((data, sender, sendResponse) => {
+  const url = 'http://127.0.0.1:8081/api/chrome-extension/save-spider?token=zhimin-studio-save-spider';
+  fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+    },
+  }).then((resp) => {
+    console.log(resp);
+  });
+  // request_proxy({ url, method: 'POST', data });
+  sendResponse({ code: 200 });
+});
