@@ -212,7 +212,7 @@ setInterval(() => {
     console.log(data);
     // }
   });
-}, 5000);
+}, 2000);
 }
 if(nowHost === 'www.baidu.com'){
 setTimeout(() => {
