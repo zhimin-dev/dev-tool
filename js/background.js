@@ -44,17 +44,39 @@ function request_proxy({ url, method, data }) {
   };
 }
 
+const wbSpiderConfig = {};
+
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  console.log('change ======');
+  for (const [key, { oldValue, newValue }] of Object.entries(changes)) {
+    console.log('change key', key, newValue);
+    if (key === 'wbSpider' || key === 'wbSpiderStart') {
+      if (key === 'wbSpider') {
+        wbSpiderConfig.url = newValue;
+      } else if (key === 'wbSpiderStart') {
+        wbSpiderConfig.start = newValue;
+      }
+    }
+    console.log(wbSpiderConfig);
+  }
+});
+
 chrome.runtime.onMessage.addListener((data, sender, sendResponse) => {
-  const url = 'http://127.0.0.1:8081/api/chrome-extension/save-spider?token=zhimin-studio-save-spider';
-  fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-    },
-  }).then((resp) => {
-    console.log(resp);
-  });
-  // request_proxy({ url, method: 'POST', data });
+  if (wbSpiderConfig.url !== '' && wbSpiderConfig.start) {
+    fetch(wbSpiderConfig.url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+    }).then((resp) => {
+      console.log(resp);
+      sendResponse({ code: 200 });
+    })
+      .catch((err) => {
+        console.log(err);
+        sendResponse({ code: 500 });
+      });
+  }
   sendResponse({ code: 200 });
 });

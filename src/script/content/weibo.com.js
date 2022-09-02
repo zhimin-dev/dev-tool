@@ -144,8 +144,5 @@ setInterval(() => {
     });
   }
   chrome.runtime.sendMessage({ list: saveData }, (data) => {
-    // if (data.code !== undefined && data.code !== 200) {
-    console.log(data);
-    // }
   });
-}, 2000);
+}, 3000);

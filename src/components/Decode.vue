@@ -12,6 +12,10 @@
           <el-button class="one-btn" size="mini" @click="urlDecode">UrlDecode</el-button>
       </div>
       <div class="btn-item">
+          <el-button class="one-btn" size="mini" @click="base64Encode">base64Encode</el-button>
+          <el-button class="one-btn" size="mini" @click="base64Decode">base64Decode</el-button>
+      </div>
+      <div class="btn-item">
           <el-button class="one-btn" size="mini" @click="cnToUtf8">中文转UTF-8</el-button>
           <el-button class="one-btn" size="mini" @click="utf8ToCn">UTF-8转中文</el-button>
       </div>
@@ -78,6 +82,14 @@ export default {
       if (this.originalText === '') { return; }
       const str = this.originalText.replace(/\\/g, '%');
       this.outputText = unescape(str);
+    },
+    base64Encode() {
+      if (this.originalText === '') { return; }
+      this.outputText = btoa(encodeURIComponent(this.originalText));
+    },
+    base64Decode() {
+      if (this.originalText === '') { return; }
+      this.outputText = decodeURIComponent(atob(this.originalText));
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
     <div>
-       <div style="display: flex;justify-content: flex-end;" v-if="!hideMenuBar">
+       <div style="display: flex;justify-content: flex-end;" v-if="hideMenuBar==='false'">
            <div v-if="!showExport">
                 <el-button icon="el-icon-edit" size="mini" v-if="nowType !== 0"
                 @click="cancelLinkFun">取消</el-button>
@@ -63,7 +63,7 @@
 <script>
 export default {
   props: {
-    hideMenuBar: Boolean,
+    hideMenuBar: String,
   },
   data() {
     return {

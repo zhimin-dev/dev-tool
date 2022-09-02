@@ -17,16 +17,17 @@
         </div>
         <div class="normal-item">
           <div class="normal-title">链接</div>
-          <Link hideMenuBar=true />
+          <Link hideMenuBar="true" />
         </div>
       </div>
     </el-tab-pane>
     <el-tab-pane label="提醒" name="link"><Notice /></el-tab-pane>
-    <el-tab-pane label="链接" name="notice"><Link hideMenuBar=false /></el-tab-pane>
+    <el-tab-pane label="链接" name="notice"><Link hideMenuBar="false" /></el-tab-pane>
     <el-tab-pane label="模拟请求" v-if="isFull" name="sim"><Sim /></el-tab-pane>
     <el-tab-pane label="JsonStuff" name="jsonStuff"><JsonStuff :isFull = "isFull" /></el-tab-pane>
     <el-tab-pane label="SqlToModel" name="sqlToModel"><SqlToModel /></el-tab-pane>
     <el-tab-pane label="HtmlShow" v-if="isFull" name="HtmlShow"><HtmlShow /></el-tab-pane>
+    <el-tab-pane label="设置" name="setting"><Setting /></el-tab-pane>
   </el-tabs>
   </div>
 </template>
@@ -40,6 +41,7 @@ import HtmlShow from './components/Html.vue';
 import Link from './components/Link.vue';
 import SqlToModel from './components/SqlToModel.vue';
 import Notice from './components/Notice.vue';
+import Setting from './components/Setting.vue';
 import JsonStuff from './components/JsonStuff.vue';
 
 export default {
@@ -66,6 +68,7 @@ export default {
     SqlToModel,
     Notice,
     JsonStuff,
+    Setting,
   },
 };
 </script>
