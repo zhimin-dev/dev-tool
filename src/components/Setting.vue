@@ -37,10 +37,17 @@ export default {
       wbSpider: '',
       startSpider: false,
       wbSpiderKey: 'l:wbSpider',
+      wbSpiderStartKey: 'l:wb:spider:start',
     };
   },
   created() {
     this.wbSpider = localStorage.getItem(this.wbSpiderKey);
+    const item = localStorage.getItem(this.wbSpiderStartKey);
+    let isStart = false;
+    if (item === '1') {
+      isStart = true;
+    }
+    this.startSpider = isStart;
   },
   methods: {
     startSpiderCall() {
@@ -56,6 +63,11 @@ export default {
           console.log('设置任务成功，请浏览相关页面！');
         });
       }
+      let item = '0';
+      if (this.startSpider) {
+        item = '1';
+      }
+      localStorage.setItem(this.wbSpiderStartKey, item);
     },
     setWbSpider() {
       localStorage.setItem(this.wbSpiderKey, this.wbSpider);
