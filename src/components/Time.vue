@@ -1,16 +1,32 @@
 <template>
   <div class="time-container">
     <div>
-      当前时间戳：<el-link @click="this.copyNowUnixtime">{{mTime.unixtime}}</el-link>
-      当前时间：<el-link @click="this.copyTimeStr">{{mTime.str}}</el-link>
+      当前时间戳：<el-link @click="this.copyNowUnixtime">{{
+        mTime.unixtime
+      }}</el-link>
+      当前时间：<el-link @click="this.copyTimeStr">{{ mTime.str }}</el-link>
     </div>
     <div class="time">
-      <el-input v-model="nowTime" size="mini" class="now-time" placeholder="当前时间"></el-input>
+      <el-input
+        v-model="nowTime"
+        size="mini"
+        class="now-time"
+        placeholder="当前时间"
+      ></el-input>
       <div class="now-time">
-        <el-button size="mini" @click="this.unixtimestampToTimeStr">时间戳转字符串 ⬇️ </el-button>
-        <el-button size="mini" @click="this.timeStrToUnixtimestamp">字符串转时间戳 ⬆️ </el-button>
+        <el-button size="mini" @click="this.unixtimestampToTimeStr"
+          >时间戳转字符串 ⬇️
+        </el-button>
+        <el-button size="mini" @click="this.timeStrToUnixtimestamp"
+          >字符串转时间戳 ⬆️
+        </el-button>
       </div>
-      <el-input v-model="showTime" size="mini" class="now-time" placeholder="当前时间"></el-input>
+      <el-input
+        v-model="showTime"
+        size="mini"
+        class="now-time"
+        placeholder="当前时间"
+      ></el-input>
     </div>
   </div>
 </template>
@@ -19,18 +35,18 @@ export default {
   data() {
     return {
       mTime: {
-        str: '',
+        str: "",
         unixtime: 0,
       },
       nowTime: 0,
-      showTime: '',
+      showTime: "",
       year: 2020,
       month: 1,
       day: 1,
       hour: 0,
       minute: 0,
       second: 0,
-      customTime: '',
+      customTime: "",
     };
   },
   created() {
@@ -69,16 +85,17 @@ export default {
         });
       }
       if (rows.length >= 7) {
-        this.nowTime = new Date(
-          `${rows[1]}-${rows[2]}-${rows[3]} ${rows[4]}:${rows[5]}:${rows[6]}`,
-        ).getTime() / 1000;
+        this.nowTime =
+          new Date(
+            `${rows[1]}-${rows[2]}-${rows[3]} ${rows[4]}:${rows[5]}:${rows[6]}`
+          ).getTime() / 1000;
       } else {
-        this.$message.error('解析失败');
+        this.$message.error("解析失败");
       }
     },
     unixtimestampToTimeStr() {
       let unixNumber;
-      if ((`${this.nowTime}`).length === 10) {
+      if (`${this.nowTime}`.length === 10) {
         unixNumber = parseInt(this.nowTime, 10) * 1000;
       } else {
         unixNumber = parseInt(this.nowTime, 10);
@@ -88,17 +105,19 @@ export default {
   },
 };
 </script>
-<style lang="sass" scoped>
-.time-container
-  .time
-    display: flex
-    padding-bottom: 5px
-    font-size: 14px
-    flex-direction: column
-    .now-time
-      display: flex
-      flex-wrap: wrap
-      padding-right: 10px
-      width: 300px
-      margin-bottom: 10px
+<style scoped>
+.time {
+  display: flex;
+  padding-bottom: 5px;
+  font-size: 14px;
+  flex-direction: column;
+}
+
+.now-time {
+  display: flex;
+  flex-wrap: wrap;
+  padding-right: 10px;
+  width: 300px;
+  margin-bottom: 10px;
+}
 </style>

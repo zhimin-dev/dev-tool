@@ -2,16 +2,21 @@
 const nowHost = window.location.host;
 if(nowHost === 'annom.com'){
 function parseTime(testTime) {
-  const a = testTime.split(' ');
+  const a = testTime.split(" ");
   const result = {
-    y: 0, m: 0, d: 0, h: 0, mi: 0, s: 0,
+    y: 0,
+    m: 0,
+    d: 0,
+    h: 0,
+    mi: 0,
+    s: 0,
   };
   if (a.length >= 2) {
-    const ymd = a[0].split('-');
+    const ymd = a[0].split("-");
     result.y = Number(ymd[0]);
     result.m = Number(ymd[1]);
     result.d = Number(ymd[2]);
-    const hms = a[1].split(':');
+    const hms = a[1].split(":");
     result.h = Number(hms[0]);
     result.mi = Number(hms[1]);
     result.s = Number(hms[2]);
@@ -20,23 +25,25 @@ function parseTime(testTime) {
 }
 
 setInterval(() => {
-  const list = document.getElementsByClassName('content');
+  const list = document.getElementsByClassName("content");
   if (list.length === 3) {
-    const one = list[2].getElementsByClassName('collapsible-section');
+    const one = list[2].getElementsByClassName("collapsible-section");
     if (one.length >= 1) {
-      const obj = one[0].getElementsByClassName('dl-horizontal');
+      const obj = one[0].getElementsByClassName("dl-horizontal");
       if (obj.length >= 1) {
-        const r = obj[0].getElementsByTagName('dt');
-        const j = obj[0].getElementsByTagName('dd');
+        const r = obj[0].getElementsByTagName("dt");
+        const j = obj[0].getElementsByTagName("dd");
         for (let i = 0; i < r.length; i += 1) {
           const dtname = r[i].innerText;
-          if (dtname === 'Created') {
+          if (dtname === "Created") {
             const timeValue = j[i].innerText;
-            const timeValueS = timeValue.split(' ');
-            if (timeValueS.length === 3 && timeValueS[2] === 'PST') {
+            const timeValueS = timeValue.split(" ");
+            if (timeValueS.length === 3 && timeValueS[2] === "PST") {
               const re = parseTime(timeValue);
-              const stamp = new Date(re.y, re.m - 1, re.d, re.h, re.mi, re.s).getTime()
-              / 1000 + 16 * 3600;
+              const stamp =
+                new Date(re.y, re.m - 1, re.d, re.h, re.mi, re.s).getTime() /
+                  1000 +
+                16 * 3600;
               j[i].innerText = new Date(stamp * 1000).toLocaleString();
             }
           }
@@ -49,20 +56,20 @@ setInterval(() => {
 if(nowHost === 'blog.csdn.net'){
 // 设置csdn烦人的【展开阅读全文】、【弹出登录】功能
 setTimeout(() => {
-  document.getElementById('article_content').style.height = 'auto';
-  const hideOpenMore = document.getElementsByClassName('hide-article-box');
+  document.getElementById("article_content").style.height = "auto";
+  const hideOpenMore = document.getElementsByClassName("hide-article-box");
   for (let i = 0; i < hideOpenMore.length; i += 1) {
     hideOpenMore[i].remove();
   }
-  document.getElementById('passportbox').style.display = 'none';
-  const loginMark = document.getElementsByClassName('login-mark');
+  document.getElementById("passportbox").style.display = "none";
+  const loginMark = document.getElementsByClassName("login-mark");
   for (let i = 0; i < loginMark.length; i += 1) {
     loginMark[i].remove();
   }
 }, 2000);
 }
 if(nowHost === 'weibo.com'){
-console.log('----zhimin spider inject');
+console.log("----zhimin spider inject");
 
 function parseStyleUrl(str) {
   const regex = /url\(\"(.*)\"\)/gm;
@@ -88,28 +95,28 @@ function parseStyleUrl(str) {
 
 setInterval(() => {
   const saveData = [];
-  const content = document.getElementsByClassName('wbpro-scroller-item');
+  const content = document.getElementsByClassName("wbpro-scroller-item");
   for (let i = 0; i < content.length; i += 1) {
     const oneItem = content[i];
-    let videoUrl = '';
-    let videoCover = '';
+    let videoUrl = "";
+    let videoCover = "";
 
     let repost = false;
     // 转发的内容 正文+视频+封面
-    const originalContent = oneItem.getElementsByClassName('wbpro-feed-reText');
+    const originalContent = oneItem.getElementsByClassName("wbpro-feed-reText");
     for (let iD = 0; iD < originalContent.length; iD += 1) {
       repost = true;
       const videoContainer = originalContent[iD].nextSibling;
-      const videoInfo = videoContainer.getElementsByTagName('video');
+      const videoInfo = videoContainer.getElementsByTagName("video");
       if (videoInfo.length > 0) {
-        videoUrl = videoInfo[0].getAttribute('src');
+        videoUrl = videoInfo[0].getAttribute("src");
       }
-      const coverInfo = videoContainer.getElementsByClassName('wbpv-poster');
+      const coverInfo = videoContainer.getElementsByClassName("wbpv-poster");
       if (coverInfo.length > 0) {
-        videoCover = coverInfo[0].getAttribute('style');
+        videoCover = coverInfo[0].getAttribute("style");
       }
     }
-    let userName = '';
+    let userName = "";
     for (let oC = 0; oC < originalContent.length; oC += 1) {
       if (oC === 0) {
         userName = originalContent[oC].innerText;
@@ -117,8 +124,8 @@ setInterval(() => {
     }
 
     // 原始的内容 正文+视频+封面
-    const userContent = oneItem.getElementsByClassName('wbpro-feed-ogText');
-    let uContent = '';
+    const userContent = oneItem.getElementsByClassName("wbpro-feed-ogText");
+    let uContent = "";
     for (let uC = 0; uC < userContent.length; uC += 1) {
       if (uC === 0) {
         uContent = userContent[uC].innerText;
@@ -126,34 +133,39 @@ setInterval(() => {
       if (!repost) {
         const videoContainer = userContent[uC].nextSibling;
         if (videoContainer) {
-          const videoInfo = videoContainer.getElementsByTagName('video');
+          const videoInfo = videoContainer.getElementsByTagName("video");
           if (videoInfo.length > 0) {
-            videoUrl = videoInfo[0].getAttribute('src');
+            videoUrl = videoInfo[0].getAttribute("src");
           }
-          const coverInfo = videoContainer.getElementsByClassName('wbpv-poster');
+          const coverInfo =
+            videoContainer.getElementsByClassName("wbpv-poster");
           if (coverInfo.length > 0) {
-            videoCover = coverInfo[0].getAttribute('style');
+            videoCover = coverInfo[0].getAttribute("style");
           }
         }
       }
     }
 
     // 获取文本链接
-    let linkUrl = '';
-    const contentId = oneItem.getElementsByClassName('woo-box-justifyBetween');
+    let linkUrl = "";
+    const contentId = oneItem.getElementsByClassName("woo-box-justifyBetween");
     for (let iC = 0; iC < contentId.length; iC += 1) {
       if (iC === 0) {
-        if (contentId[iC].getElementsByTagName('a').length > 0) {
-          linkUrl = contentId[iC].getElementsByTagName('a')[0].getAttribute('href');
+        if (contentId[iC].getElementsByTagName("a").length > 0) {
+          linkUrl = contentId[iC]
+            .getElementsByTagName("a")[0]
+            .getAttribute("href");
         }
       }
     }
-    if (linkUrl === '') {
-      const clink = oneItem.getElementsByClassName('woo-box-justifyCenter');
+    if (linkUrl === "") {
+      const clink = oneItem.getElementsByClassName("woo-box-justifyCenter");
       for (let iC = 0; iC < clink.length; iC += 1) {
         if (iC === 1) {
-          if (clink[iC].getElementsByTagName('a').length > 0) {
-            linkUrl = clink[iC].getElementsByTagName('a')[0].getAttribute('href');
+          if (clink[iC].getElementsByTagName("a").length > 0) {
+            linkUrl = clink[iC]
+              .getElementsByTagName("a")[0]
+              .getAttribute("href");
           }
         }
       }
@@ -162,31 +174,31 @@ setInterval(() => {
     // 获取图片或者live photo视频
     const imageList = [];
     const videoList = [];
-    const orignalPic = oneItem.getElementsByClassName('woo-picture-slot');
+    const orignalPic = oneItem.getElementsByClassName("woo-picture-slot");
     for (let p = 0; p < orignalPic.length; p += 1) {
-      const oneSmallPic = orignalPic[p].getElementsByTagName('img');
+      const oneSmallPic = orignalPic[p].getElementsByTagName("img");
       if (oneSmallPic.length > 0) {
         for (let sP = 0; sP < oneSmallPic.length; sP += 1) {
-          imageList.push(oneSmallPic[sP].getAttribute('src'));
+          imageList.push(oneSmallPic[sP].getAttribute("src"));
         }
       }
-      const vides = orignalPic[p].getElementsByTagName('video');
+      const vides = orignalPic[p].getElementsByTagName("video");
       if (vides.length > 0) {
         for (let sP = 0; sP < vides.length; sP += 1) {
-          videoList.push(vides[sP].getAttribute('src'));
+          videoList.push(vides[sP].getAttribute("src"));
         }
       }
     }
-    const exp = userName.split('\n');
-    let uName = '';
-    let ucContent = '';
+    const exp = userName.split("\n");
+    let uName = "";
+    let ucContent = "";
     if (exp.length >= 2) {
       [uName, ucContent] = exp;
     } else {
       ucContent = userName;
     }
-    let videoCoverUrl = '';
-    if (videoCover !== '') {
+    let videoCoverUrl = "";
+    if (videoCover !== "") {
       const urlArr = parseStyleUrl(videoCover);
       if (urlArr[1] !== undefined) {
         videoCoverUrl = urlArr[1];
@@ -207,15 +219,16 @@ setInterval(() => {
       liveVideo: videoList,
     });
   }
-  chrome.runtime.sendMessage({ list: saveData }, (data) => {
-  });
+  chrome.runtime.sendMessage({ list: saveData }, (data) => {});
 }, 3000);
 }
 if(nowHost === 'www.baidu.com'){
 setTimeout(() => {
   // 右侧百度热榜
-  const rightObj = document.getElementById('content_right');
-  if (rightObj !== undefined) { rightObj.remove(); }
+  const rightObj = document.getElementById("content_right");
+  if (rightObj !== undefined) {
+    rightObj.remove();
+  }
   // 左侧广告
   for (let j = 1; j < 10; j += 1) {
     const tempMin = j * 1000;
@@ -223,7 +236,7 @@ setTimeout(() => {
     for (let i = tempMin; i < tempMax; i += 1) {
       const pObj = document.getElementById(`${i}`);
       if (pObj !== undefined && pObj !== null) {
-        pObj.style.display = 'none !important';
+        pObj.style.display = "none !important";
         pObj.remove();
       }
     }
@@ -231,11 +244,11 @@ setTimeout(() => {
 }, 1000);
 setInterval(() => {
   // 左侧广告
-  const tuiguangPpm = document.getElementsByClassName('EC_ppim_new_gap_bottom');
+  const tuiguangPpm = document.getElementsByClassName("EC_ppim_new_gap_bottom");
   for (let i = 0; i < tuiguangPpm.length; i += 1) {
     tuiguangPpm[i].remove();
   }
-  const tuiGuangObj = document.getElementsByClassName('ec_tuiguang_pplink');
+  const tuiGuangObj = document.getElementsByClassName("ec_tuiguang_pplink");
   for (let i = 0; i < tuiGuangObj.length; i += 1) {
     tuiGuangObj[i].parentNode.parentNode.remove();
   }
@@ -243,23 +256,23 @@ setInterval(() => {
 }
 if(nowHost === 'www.coder55.com'){
 setTimeout(() => {
-  document.getElementById('btw-mask').style.display = 'none';
-  document.getElementById('btw-modal').style.display = 'none';
+  document.getElementById("btw-mask").style.display = "none";
+  document.getElementById("btw-modal").style.display = "none";
 }, 1000);
 }
 if(nowHost === 'yq.aliyun.com'){
 setTimeout(() => {
-  const hideContent = document.getElementsByClassName('article-hide-content');
+  const hideContent = document.getElementsByClassName("article-hide-content");
   if (hideContent.length > 0) {
-    console.log('block hide content');
+    console.log("block hide content");
     console.log(hideContent[0]);
-    hideContent[0].style.height = 'auto';
-    hideContent[0].style.overflow = 'visible';
+    hideContent[0].style.height = "auto";
+    hideContent[0].style.overflow = "visible";
   }
-  const mask = document.getElementsByClassName('dbl-popup-backdrop');
+  const mask = document.getElementsByClassName("dbl-popup-backdrop");
   if (mask.length > 0) {
-    console.log('block mask');
-    mask[0].style.display = 'none';
+    console.log("block mask");
+    mask[0].style.display = "none";
   }
 }, 5000);
 }

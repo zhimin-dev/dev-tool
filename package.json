@@ -1,44 +1,28 @@
 {
-  "name": "chrome-extension",
-  "description": "a zhimin chrome extension",
-  "version": "1.0.0",
-  "author": "meow.zang",
-  "license": "MIT",
+  "name": "dev-tool",
+  "version": "0.0.0",
   "scripts": {
-    "dev": "node js/build_package.js && cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "node js/build_package.js && cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "build-local": "node js/build_package.js && vite build && mkdir -p dist/js && cp -r js/ dist/js/ && cp manifest.json dist/manifest.json && cp popup.html dist/popup.html"
   },
   "dependencies": {
     "axios": "^0.21.0",
     "element-ui": "^2.13.2",
     "js-md5": "^0.7.3",
-    "sortablejs": "^1.14.0",
-    "url-loader": "^4.1.0",
-    "vue": "^2.5.11"
+    "vue": "^2.7.7"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-stage-3": "^6.24.1",
-    "cross-env": "^5.0.5",
-    "css-loader": "^0.28.7",
-    "eslint": "^7.9.0",
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-vue": "^6.2.2",
-    "file-loader": "^1.1.4",
-    "node-sass": "^4.5.3",
-    "sass": "^1.26.10",
-    "sass-loader": "^6.0.7",
-    "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+    "@rushstack/eslint-patch": "^1.1.0",
+    "@vitejs/plugin-legacy": "^2.0.0",
+    "@vitejs/plugin-vue2": "^1.1.2",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "eslint": "^8.5.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "prettier": "^2.5.1",
+    "terser": "^5.14.2",
+    "vite": "^3.0.2"
   }
 }

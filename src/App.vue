@@ -1,63 +1,68 @@
 <template>
-  <div id="app" :class='{"fixedWidth": !isFull, "fullWidth" :isFull }'>
+  <div id="app" :class="{ fixedWidth: true }">
     <el-tabs v-model="nowType">
-    <el-tab-pane label="常用" name="normal">
-      <div class="normal-container">
-        <div class="normal-item">
-          <div class="normal-title">时间处理</div>
-          <Time />
+      <el-tab-pane label="常用" name="normal">
+        <div class="normal-container">
+          <div class="normal-item">
+            <div class="normal-title">时间处理</div>
+            <Time />
+          </div>
+          <div class="normal-item">
+            <div class="normal-title">计算器</div>
+            <Cal />
+          </div>
+          <div class="normal-item">
+            <div class="normal-title">编解码</div>
+            <Decode />
+          </div>
+          <div class="normal-item">
+            <div class="normal-title">链接</div>
+            <Link hideMenuBar="true" />
+          </div>
         </div>
-        <div class="normal-item">
-          <div class="normal-title">计算器</div>
-          <Cal />
-        </div>
-        <div class="normal-item">
-          <div class="normal-title">编解码</div>
-          <Decode />
-        </div>
-        <div class="normal-item">
-          <div class="normal-title">链接</div>
-          <Link hideMenuBar="true" />
-        </div>
-      </div>
-    </el-tab-pane>
-    <el-tab-pane label="提醒" name="link"><Notice /></el-tab-pane>
-    <el-tab-pane label="链接" name="notice"><Link hideMenuBar="false" /></el-tab-pane>
-    <el-tab-pane label="模拟请求" v-if="isFull" name="sim"><Sim /></el-tab-pane>
-    <el-tab-pane label="JsonStuff" name="jsonStuff"><JsonStuff :isFull = "isFull" /></el-tab-pane>
-    <el-tab-pane label="SqlToModel" name="sqlToModel"><SqlToModel /></el-tab-pane>
-    <el-tab-pane label="HtmlShow" v-if="isFull" name="HtmlShow"><HtmlShow /></el-tab-pane>
-    <el-tab-pane label="设置" name="setting"><Setting /></el-tab-pane>
-  </el-tabs>
+      </el-tab-pane>
+      <el-tab-pane label="提醒" name="link"><Notice /></el-tab-pane>
+      <el-tab-pane label="链接" name="notice"
+        ><Link hideMenuBar="false"
+      /></el-tab-pane>
+      <el-tab-pane label="模拟请求" v-if="isFull" name="sim"
+        ><Sim
+      /></el-tab-pane>
+      <el-tab-pane label="JsonStuff" name="jsonStuff"
+        ><JsonStuff :isFull="isFull"
+      /></el-tab-pane>
+      <el-tab-pane label="SqlToModel" name="sqlToModel"
+        ><SqlToModel
+      /></el-tab-pane>
+      <el-tab-pane label="HtmlShow" v-if="isFull" name="HtmlShow"
+        ><HtmlShow
+      /></el-tab-pane>
+      <el-tab-pane label="设置" name="setting"><Setting /></el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
-import Time from './components/Time.vue';
-import Decode from './components/Decode.vue';
-import Cal from './components/Cal.vue';
-import Sim from './components/Sim.vue';
-import HtmlShow from './components/Html.vue';
-import Link from './components/Link.vue';
-import SqlToModel from './components/SqlToModel.vue';
-import Notice from './components/Notice.vue';
-import Setting from './components/Setting.vue';
-import JsonStuff from './components/JsonStuff.vue';
+import Time from "./components/Time.vue";
+import Decode from "./components/Decode.vue";
+import Cal from "./components/Cal.vue";
+import Sim from "./components/Sim.vue";
+import HtmlShow from "./components/Html.vue";
+import Link from "./components/Link.vue";
+import SqlToModel from "./components/SqlToModel.vue";
+import Notice from "./components/Notice.vue";
+import Setting from "./components/Setting.vue";
+import JsonStuff from "./components/JsonStuff.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   data() {
     return {
-      nowType: 'normal',
-      isFull: false,
+      nowType: "normal",
+      isFull: true,
     };
   },
-  created() {
-    const res = sessionStorage.getItem('isOption');
-    if (res === '1') {
-      this.isFull = true;
-    }
-  },
+  created() {},
   components: {
     Time,
     Decode,
@@ -73,9 +78,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -101,14 +106,13 @@ li {
 a {
   color: #42b983;
 }
-.normal-container{
-  .normal-item{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    .normal-title{
-      font-size: 14px;
-    }
-  }
+
+.normal-container .normal-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.normal-item .normal-title {
+  font-size: 14px;
 }
 </style>

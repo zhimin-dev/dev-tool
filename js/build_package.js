@@ -1,16 +1,16 @@
-const fs = require('fs');
+const fs = require("fs");
 
 const ContentJs = {
   getAllContentJs() {
-    const readPath = './src/script/content/';
-    const writeFileName = './js/content_script.js';
+    const readPath = "./src/script/content/";
+    const writeFileName = "./js/content_script.js";
     fs.readdir(readPath, (err, files) => {
       if (err) {
         console.log(err);
       } else {
         const saveFileName = [];
         files.forEach((filename) => {
-          const exp = filename.split('.js');
+          const exp = filename.split(".js");
           if (exp.length >= 2) {
             saveFileName.push(filename);
           }
@@ -19,20 +19,23 @@ const ContentJs = {
 const nowHost = window.location.host;`;
         fs.writeFileSync(writeFileName, firstLine);
         for (let i = 0; i < saveFileName.length; i += 1) {
-          const expUrl = saveFileName[i].split('.js');
-          fs.appendFileSync(writeFileName, `
+          const expUrl = saveFileName[i].split(".js");
+          fs.appendFileSync(
+            writeFileName,
+            `
 if(nowHost === '${expUrl[0]}'){
-`);
+`
+          );
           const fileInfo = fs.readFileSync(readPath + saveFileName[i]);
           fs.appendFileSync(writeFileName, String(fileInfo));
-          fs.appendFileSync(writeFileName, '}');
+          fs.appendFileSync(writeFileName, "}");
         }
       }
     });
   },
   moveElementUiCss() {
-    const cssPath = './node_modules/element-ui/lib/theme-chalk/index.css';
-    const desCssPath = './css/index.css';
+    const cssPath = "./node_modules/element-ui/lib/theme-chalk/index.css";
+    const desCssPath = "./css/index.css";
     fs.copyFile(cssPath, desCssPath, (err) => {
       if (err) {
         console.log(`copyFile ${cssPath} error${err}`);
@@ -40,8 +43,10 @@ if(nowHost === '${expUrl[0]}'){
     });
 
     const fontPath = {
-      './node_modules/element-ui/lib/theme-chalk/fonts/element-icons.woff': './css/fonts/element-icons.woff',
-      './node_modules/element-ui/lib/theme-chalk/fonts/element-icons.ttf': './css/fonts/element-icons.ttf',
+      "./node_modules/element-ui/lib/theme-chalk/fonts/element-icons.woff":
+        "./css/fonts/element-icons.woff",
+      "./node_modules/element-ui/lib/theme-chalk/fonts/element-icons.ttf":
+        "./css/fonts/element-icons.ttf",
     };
     for (const i in fontPath) {
       fs.copyFile(i, fontPath[i], (err) => {
@@ -53,7 +58,6 @@ if(nowHost === '${expUrl[0]}'){
   },
   generate() {
     this.getAllContentJs();
-    this.moveElementUiCss();
   },
 };
 ContentJs.generate();

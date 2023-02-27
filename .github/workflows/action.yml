@@ -23,12 +23,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2.1.2
+        uses: actions/setup-node@v3
         with:
-          node-version: '15.14.0'
+          node-version: '16'
         
       - name: install modules
         run: npm install
@@ -40,27 +40,21 @@ jobs:
         run: |
           git config --global user.email starzmisgod@gmail.com
           git config --global user.name meow.zang
-          mkdir result
-          mv css/ result/css/
-          mv dist/ result/dist/
-          mv images/ result/images/
-          mv js/ result/js/
-          mv index.html result/
-          mv manifest.json result/
-          mv options.html result/
+          mv assets/ dist/assets/
+          mv js/ dist/js/
+          mv manifest.json dist/
+          mv popup.html dist/
           git rm -r --cached .
-          mv result/* ../*
-          rm -rf result
-          touch .gitignore && echo >> "node_modules/*"
-          git add .gitignore
-          git add css/*
+          mv dist/* ../*
+          rm -rf dist
           git add js/*
-          git add images/*
-          git add dist/*
-          git add *.json
-          git add *.html
+          git add assets/*
+          git add manifest.json
+          git add index.html
+          git add popup.html
+          git add icon.png
           git commit -m "auto build from github workflow"
-          git remote set-url origin https://zmisgod:${{secrets.ACCESS_TOKEN}}@github.com/zhimin-dev/chrome-extension.git
+          git remote set-url origin https://zmisgod:${{secrets.ACCESS_TOKEN}}@github.com/zhimin-dev/iptv-checker.git
           git remote -v
           git checkout -b production
           git push origin HEAD:production --force
