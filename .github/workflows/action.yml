@@ -53,7 +53,7 @@ jobs:
           git add popup.html
           git add icon.png
           git commit -m "auto build from github workflow"
-          git remote set-url origin https://zmisgod:${{secrets.ACCESS_TOKEN}}@github.com/zhimin-dev/iptv-checker.git
+          git remote set-url origin https://zmisgod:${{secrets.ACCESS_TOKEN}}@github.com/zhimin-dev/dev-tool.git
           git remote -v
           git checkout -b production
           git push origin HEAD:production --force
