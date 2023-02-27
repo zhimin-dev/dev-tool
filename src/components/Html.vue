@@ -4,6 +4,7 @@
       <el-input
         type="textarea"
         placeholder="请输入html"
+        rows="4"
         v-model="showHtml"
       ></el-input>
     </div>
@@ -15,11 +16,16 @@ export default {
   props: {},
   data() {
     return {
-      showHtml: '',
+      showHtml: "",
     };
   },
 };
 </script>
-<style lang="sass" scoped>
-.full-width
+<style scoped>
+.show-json {
+  overflow: hidden;
+}
+.show-json img {
+  max-height: 300px !important;
+}
 </style>

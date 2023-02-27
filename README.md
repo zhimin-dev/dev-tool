@@ -6,10 +6,6 @@
 - it has some useful functions you will use it frequently
 - you can add your custom script to some websites
 
-## environment
-
-This project need node <= `15.14.0`, we recommend you use `15.14.0` to develop
-
 ## Add your custom script
 
 1. find `src/script/content/`folder

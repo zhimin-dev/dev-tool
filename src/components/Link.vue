@@ -1,64 +1,91 @@
 <template>
-    <div>
-       <div style="display: flex;justify-content: flex-end;" v-if="hideMenuBar==='false'">
-           <div v-if="!showExport">
-                <el-button icon="el-icon-edit" size="mini" v-if="nowType !== 0"
-                @click="cancelLinkFun">取消</el-button>
-                <el-button icon="el-icon-success" size="mini"
-                @click="saveLinkFun" v-if="nowType === 1">保存</el-button>
-                <el-button icon="el-icon-edit" size="mini"
-                  v-if="linkList.length > 0 && nowType === 0"
-                @click="editLinkFun">添加/编辑</el-button>
-            </div>
-            <div style="margin-left: 20px;" v-if="linkList.length > 0 && nowType === 0">
-              <el-button icon="el-icon-s-operation" size="mini"
-                @click="importJsonFun">导入链接</el-button>
-                <el-button icon="el-icon-s-operation" size="mini"
-                @click="exportJsonFun">导出链接</el-button>
-            </div>
-       </div>
-       <div class="list-link" v-if="mode == 0">
-         <div class="list-link-item" v-for="(value, index) in linkList" :key="index">
-            <a :href="value.url" target="__blank">
-              {{value.title}}
-              <i class="el-icon-s-promotion"></i>
-            </a>
-         </div>
-       </div>
-        <el-table
-        v-if="mode == 1"
-        :data="linkList"
-        style="width: 100%">
-        <el-table-column
-            label="链接名">
-            <template slot-scope="scope">
-              <el-input size="mini" v-model="scope.row.title" placeholder="请输入标题"></el-input>
-            </template>
-        </el-table-column>
-        <el-table-column
-            label="url">
-            <template slot-scope="scope">
-                <el-input size="mini" v-model="scope.row.url" placeholder="请输入链接"></el-input>
-            </template>
-        </el-table-column>
-        <el-table-column
-            width="90"
-            label="操作" v-if="showDelete">
-            <template slot-scope="scope">
-                <div @click="deleteRowFun(scope.$index)"
-                style="cursor: pointer;"><i class="el-icon-delete"></i></div>
-            </template>
-        </el-table-column>
-        </el-table>
-        <div v-if="showExport || showImport" class="import-area">
-          <el-input
-              type="textarea"
-              autosize="true"
-              v-model="exportJson">
-          </el-input>
-          <el-button size="mini" v-if="showImport" @click="doImport">点击导入</el-button>
-        </div>
+  <div>
+    <div
+      style="display: flex; justify-content: flex-end"
+      v-if="hideMenuBar === 'false'"
+    >
+      <div v-if="!showExport">
+        <el-button
+          icon="el-icon-edit"
+          size="mini"
+          v-if="nowType !== 0"
+          @click="cancelLinkFun"
+          >取消</el-button
+        >
+        <el-button
+          icon="el-icon-success"
+          size="mini"
+          @click="saveLinkFun"
+          v-if="nowType === 1"
+          >保存</el-button
+        >
+        <el-button
+          icon="el-icon-edit"
+          size="mini"
+          v-if="linkList.length > 0 && nowType === 0"
+          @click="editLinkFun"
+          >添加/编辑</el-button
+        >
+      </div>
+      <div
+        style="margin-left: 20px"
+        v-if="linkList.length > 0 && nowType === 0"
+      >
+        <el-button icon="el-icon-s-operation" size="mini" @click="importJsonFun"
+          >导入链接</el-button
+        >
+        <el-button icon="el-icon-s-operation" size="mini" @click="exportJsonFun"
+          >导出链接</el-button
+        >
+      </div>
     </div>
+    <div class="list-link" v-if="mode == 0">
+      <div
+        class="list-link-item"
+        v-for="(value, index) in linkList"
+        :key="index"
+      >
+        <a :href="value.url" target="__blank">
+          {{ value.title }}
+          <i class="el-icon-s-promotion"></i>
+        </a>
+      </div>
+    </div>
+    <el-table v-if="mode == 1" :data="linkList" style="width: 100%">
+      <el-table-column label="链接名">
+        <template slot-scope="scope">
+          <el-input
+            size="mini"
+            v-model="scope.row.title"
+            placeholder="请输入标题"
+          ></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column label="url">
+        <template slot-scope="scope">
+          <el-input
+            size="mini"
+            v-model="scope.row.url"
+            placeholder="请输入链接"
+          ></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column width="90" label="操作" v-if="showDelete">
+        <template slot-scope="scope">
+          <div @click="deleteRowFun(scope.$index)" style="cursor: pointer">
+            <i class="el-icon-delete"></i>
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div v-if="showExport || showImport" class="import-area">
+      <el-input type="textarea" autosize="true" v-model="exportJson">
+      </el-input>
+      <el-button size="mini" v-if="showImport" @click="doImport"
+        >点击导入</el-button
+      >
+    </div>
+  </div>
 </template>
 <script>
 export default {
@@ -67,10 +94,16 @@ export default {
   },
   data() {
     return {
-      linkList: [{ url: 'https://regex101.com/', title: '正则' }, { url: 'http://github.com/zhimin-dev/chrome-extension', title: '本插件Github' }],
+      linkList: [
+        { url: "https://regex101.com/", title: "正则" },
+        {
+          url: "http://github.com/zhimin-dev/chrome-extension",
+          title: "本插件Github",
+        },
+      ],
       showExport: false,
       showImport: false,
-      exportJson: '',
+      exportJson: "",
       tempLink: [],
       nowType: 0,
       showDelete: false,
@@ -78,8 +111,8 @@ export default {
     };
   },
   created() {
-    const res = localStorage.getItem('linkUrl');
-    if (res !== undefined && res !== null && res !== '') {
+    const res = localStorage.getItem("linkUrl");
+    if (res !== undefined && res !== null && res !== "") {
       try {
         this.linkList = JSON.parse(res);
       } catch (e) {
@@ -89,7 +122,7 @@ export default {
   },
   methods: {
     saveLink() {
-      localStorage.setItem('linkUrl', JSON.stringify(this.linkList));
+      localStorage.setItem("linkUrl", JSON.stringify(this.linkList));
       this.mode = 0;
     },
     doImport() {
@@ -102,7 +135,7 @@ export default {
           }
         }
         this.saveLink();
-        this.exportJson = '';
+        this.exportJson = "";
       } catch (e) {
         console.log(e);
       }
@@ -125,7 +158,7 @@ export default {
       }
     },
     getEmptyObj() {
-      return this.setObj('', '');
+      return this.setObj("", "");
     },
     setObj(title, url) {
       return {
@@ -138,7 +171,7 @@ export default {
       this.nowType = 0;
       const newList = [];
       for (let i = 0; i < this.linkList.length; i += 1) {
-        if (this.linkList[i].title !== '' || this.linkList[i].url !== '') {
+        if (this.linkList[i].title !== "" || this.linkList[i].url !== "") {
           newList.push(this.linkList[i]);
         }
       }
@@ -166,16 +199,24 @@ export default {
   },
 };
 </script>
-<style lang="sass" scope>
-.list-link
-    display: flex
-    flex-wrap: wrap;
-    .list-link-item
-      margin-right: 15px
-      padding: 10px
-      a
-        color: #000
-        text-decoration: none
-.import-area
+<style scope>
+.list-link {
   display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.list-link-item {
+  margin-right: 15px;
+  padding: 10px;
+}
+
+.list-link-item a {
+  color: #000;
+  text-decoration: none;
+}
+
+.import-area {
+  display: flex;
+}
 </style>

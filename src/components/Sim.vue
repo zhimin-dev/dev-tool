@@ -20,32 +20,45 @@
         type="textarea"
         :autosize="true"
         placeholder="请输入postData"
-        v-model="postData">
+        v-model="postData"
+      >
       </el-input>
     </div>
-    <div style="display: flex;align-items: baseline;flex-direction: row-reverse;">
-      <el-button size="mini" type="primary" circle @click="addHeader">+</el-button>
-      <el-table
-      :data="headers"
-      style="width: 100%">
-      <el-table-column label="KEY">
-        <template slot-scope="scope">
-          <el-input v-model="scope.row.key" placeholder="请输入内容"></el-input>
-        </template>
-      </el-table-column>
-      <el-table-column label="VALUE">
-        <template slot-scope="scope">
-          <el-input v-model="scope.row.value" placeholder="请输入内容"></el-input>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button @click="deleteThisHeader(scope.$index)" size="mini" circle>
-            -
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+    <div
+      style="display: flex; align-items: baseline; flex-direction: row-reverse"
+    >
+      <el-button size="mini" type="primary" circle @click="addHeader"
+        >+</el-button
+      >
+      <el-table :data="headers" style="width: 100%">
+        <el-table-column label="KEY">
+          <template slot-scope="scope">
+            <el-input
+              v-model="scope.row.key"
+              placeholder="请输入内容"
+            ></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column label="VALUE">
+          <template slot-scope="scope">
+            <el-input
+              v-model="scope.row.value"
+              placeholder="请输入内容"
+            ></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              @click="deleteThisHeader(scope.$index)"
+              size="mini"
+              circle
+            >
+              -
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
     <div>
       <el-tabs v-model="activeTab">
@@ -56,36 +69,36 @@
             placeholder="请输入内容"
             v-model="result"
           ></el-input>
-      </el-tab-pane>
+        </el-tab-pane>
         <el-tab-pane label="ResponseHeader" name="header">
           <div v-for="(v, i) in resultResponseHeader" :key="i">
             <div v-text="i + ': ' + v"></div>
           </div>
-          </el-tab-pane>
+        </el-tab-pane>
       </el-tabs>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
     return {
-      url: '',
-      result: '',
-      request_type_list: ['GET', 'POST', 'HEAD'],
-      request_type: 'GET',
+      url: "",
+      result: "",
+      request_type_list: ["GET", "POST", "HEAD"],
+      request_type: "GET",
       headers: [],
-      activeTab: 'body',
-      postData: '',
+      activeTab: "body",
+      postData: "",
       resultResponseHeader: [],
     };
   },
   methods: {
     addHeader() {
-      this.headers.push({ key: '', value: '' });
+      this.headers.push({ key: "", value: "" });
     },
     doSend() {
       this.sendRequest();
@@ -106,8 +119,8 @@ export default {
       })
         .then((res) => {
           this.resultResponseHeader = res.headers;
-          const contentType = res.headers['content-type'];
-          if (contentType.split(';')[0] === 'application/json') {
+          const contentType = res.headers["content-type"];
+          if (contentType.split(";")[0] === "application/json") {
             this.result = JSON.stringify(res.data);
           } else {
             this.result = res.data;
@@ -121,14 +134,19 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.sim-conatiner
-  display: flex
-  justify-content: center
-  flex-direction: column
-  .sim-url
-    display: flex
-    margin: 10px 0
-    .url-c
-      margin-right: 3px
+<style scoped>
+.sim-conatiner {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.sim-url {
+  display: flex;
+  margin: 10px 0;
+}
+
+.url-c {
+  margin-right: 3px;
+}
 </style>
