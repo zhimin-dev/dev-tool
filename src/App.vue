@@ -1,6 +1,6 @@
 <template>
   <div id="app" :class="{ fixedWidth: true }">
-    <el-tabs v-model="nowType">
+    <el-tabs v-model="nowType" @tab-click="changeTab">
       <el-tab-pane label="常用" name="normal">
         <div class="normal-container">
           <div class="normal-item">
@@ -53,6 +53,7 @@ import SqlToModel from "./components/SqlToModel.vue";
 import Notice from "./components/Notice.vue";
 import Setting from "./components/Setting.vue";
 import JsonStuff from "./components/JsonStuff.vue";
+const lastClickTabStorage = "last:click";
 
 export default {
   name: "app",
@@ -62,7 +63,22 @@ export default {
       isFull: true,
     };
   },
-  created() {},
+  created() {
+    let item = localStorage.getItem(lastClickTabStorage);
+    if (item !== "" && item !== null) {
+      this.nowType = item;
+    }
+
+    item = sessionStorage.getItem("isOption");
+    if (item === "0") {
+      this.isFull = false;
+    }
+  },
+  methods: {
+    changeTab() {
+      localStorage.setItem(lastClickTabStorage, this.nowType);
+    },
+  },
   components: {
     Time,
     Decode,

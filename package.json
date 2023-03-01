@@ -6,7 +6,7 @@
     "build": "vite build",
     "preview": "vite preview --port 4173",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "build-local": "node js/build_package.js && vite build && mkdir -p dist/js && cp -r js/ dist/js/ && cp manifest.json dist/manifest.json && cp popup.html dist/popup.html"
+    "build-local": "node js/build_package.js && vite build && mkdir -p dist/js && cp -r js/ dist/js/ && cp manifest.json dist/manifest.json"
   },
   "dependencies": {
     "axios": "^0.21.0",
