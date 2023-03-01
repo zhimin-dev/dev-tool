@@ -88,6 +88,7 @@
   </div>
 </template>
 <script>
+import manifest from "./../../manifest.json";
 export default {
   props: {
     hideMenuBar: String,
@@ -97,8 +98,8 @@ export default {
       linkList: [
         { url: "https://regex101.com/", title: "正则" },
         {
-          url: "http://github.com/zhimin-dev/chrome-extension",
-          title: "本插件Github",
+          url: manifest.homepage_url,
+          title: "本插件Github@v" + manifest.version,
         },
       ],
       showExport: false,

@@ -11,7 +11,7 @@
         v-model="nowTime"
         size="mini"
         class="now-time"
-        placeholder="当前时间"
+        placeholder="当前时间戳"
       ></el-input>
       <div class="now-time">
         <el-button size="mini" @click="this.unixtimestampToTimeStr"
@@ -26,11 +26,15 @@
         size="mini"
         class="now-time"
         placeholder="当前时间"
+        @change="changeShowTime"
       ></el-input>
     </div>
   </div>
 </template>
 <script>
+const lastTimStr = "time:last:showTime";
+const copyFromClipboard = "time:copy:clipboard";
+
 export default {
   data() {
     return {
@@ -38,7 +42,7 @@ export default {
         str: "",
         unixtime: 0,
       },
-      nowTime: 0,
+      nowTime: "",
       showTime: "",
       year: 2020,
       month: 1,
@@ -50,9 +54,28 @@ export default {
     };
   },
   created() {
-    const thisTime = new Date().getTime();
-    this.nowTime = Math.round(thisTime / 1000);
-    this.showTime = this.getTimestamp(new Date(thisTime));
+    setInterval(() => {
+      navigator.clipboard
+        .readText()
+        .then((res) => {
+          if (!this.checkClipboardExist(res)) {
+            if (parseInt(res) == res) {
+              this.nowTime = res;
+              this.unixtimestampToTimeStr();
+              this.$message("从剪贴板获取时间戳");
+            }
+            localStorage.setItem(copyFromClipboard, res);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }, 1000);
+
+    let item = localStorage.getItem(lastTimStr);
+    if (item !== null && item !== "") {
+      this.showTime = item;
+    }
     setInterval(() => {
       const now = new Date();
       this.mTime.unixtime = Math.round(now.getTime() / 1000);
@@ -60,11 +83,19 @@ export default {
     }, 500);
   },
   methods: {
+    checkClipboardExist(res) {
+      let item = localStorage.getItem(copyFromClipboard);
+      if (item === "" || item === null) {
+        return false;
+      }
+      return res === item;
+    },
     copyNowUnixtime() {
       this.nowTime = this.mTime.unixtime;
     },
     copyTimeStr() {
       this.showTime = this.mTime.str;
+      this.changeShowTime();
     },
     getTimestamp(timestamp) {
       return `${timestamp.getFullYear()}-${
@@ -93,6 +124,9 @@ export default {
         this.$message.error("解析失败");
       }
     },
+    changeShowTime() {
+      localStorage.setItem(lastTimStr, this.showTime);
+    },
     unixtimestampToTimeStr() {
       let unixNumber;
       if (`${this.nowTime}`.length === 10) {
@@ -101,6 +135,7 @@ export default {
         unixNumber = parseInt(this.nowTime, 10);
       }
       this.showTime = this.getTimestamp(new Date(unixNumber));
+      this.changeShowTime();
     },
   },
 };

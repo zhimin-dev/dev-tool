@@ -1,1 +1,1 @@
-chrome.runtime.openOptionsPage();
+sessionStorage.setItem("isOption", "0");
