@@ -55,9 +55,8 @@ export default {
   },
   created() {
     setInterval(() => {
-      navigator.clipboard
-        .readText()
-        .then((res) => {
+      if (document.hasFocus()) {
+        navigator.clipboard.readText().then((res) => {
           if (!this.checkClipboardExist(res)) {
             if (parseInt(res) == res) {
               this.nowTime = res;
@@ -66,10 +65,8 @@ export default {
             }
             localStorage.setItem(copyFromClipboard, res);
           }
-        })
-        .catch((e) => {
-          console.log(e);
         });
+      }
     }, 1000);
 
     let item = localStorage.getItem(lastTimStr);
