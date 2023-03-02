@@ -13,7 +13,7 @@
     <div class="show-go" v-if="goStruct !== ''">
       <el-input
         type="textarea"
-        autosize="true"
+        :autosize="true"
         placeholder="显示的GoStruct"
         v-model="goStruct"
       ></el-input>
