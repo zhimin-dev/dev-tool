@@ -138,6 +138,9 @@ function sqlStrToGoTemplate(str) {
 }
 
 function getExpValue(str) {
+  if (str === undefined) {
+    return "";
+  }
   let exp = str.split("=");
   if (exp.length >= 2) {
     return exp[1].trim();
