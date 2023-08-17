@@ -37,7 +37,6 @@
       <el-tab-pane label="HtmlShow" v-if="isFull" name="HtmlShow"
         ><HtmlShow
       /></el-tab-pane>
-      <el-tab-pane label="设置" name="setting"><Setting /></el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -51,8 +50,8 @@ import HtmlShow from "./components/Html.vue";
 import Link from "./components/Link.vue";
 import SqlToModel from "./components/SqlToModel.vue";
 import Notice from "./components/Notice.vue";
-import Setting from "./components/Setting.vue";
 import JsonStuff from "./components/JsonStuff.vue";
+
 const lastClickTabStorage = "last:click";
 
 export default {
@@ -89,7 +88,6 @@ export default {
     SqlToModel,
     Notice,
     JsonStuff,
-    Setting,
   },
 };
 </script>
@@ -103,7 +101,7 @@ export default {
   color: #2c3e50;
 }
 .fixedWidth {
-  width: 700px;
+  width: 800px;
 }
 .fullWidth {
   width: 100%;
