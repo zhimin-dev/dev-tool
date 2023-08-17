@@ -1,6 +1,6 @@
 {
   "name": "dev-tool",
-  "version": "0.0.0",
+  "version": "2.0.4",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

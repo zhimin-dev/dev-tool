@@ -9,21 +9,18 @@
         placeholder="请输入值1"
       >
       </el-input>
-      <el-select
-        @change="calResult"
-        size="mini"
-        class="cal-type"
+      <el-radio-group
         v-model="cal_type"
-        placeholder="请选择"
+        size="small"
+        style="width: 200px"
+        @input="calResult"
       >
-        <el-option
-          v-for="item in cal_options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
-      </el-select>
+        <el-radio-button
+          :label="value.label"
+          v-for="(value, index) in cal_options"
+          :key="index"
+        ></el-radio-button>
+      </el-radio-group>
       <el-input
         @input="calResult"
         size="mini"
@@ -53,7 +50,7 @@ export default {
       result: "",
       value1: "",
       value2: "",
-      cal_type: 1,
+      cal_type: "/",
       cal_options: [
         {
           label: "+",
@@ -80,15 +77,15 @@ export default {
   },
   methods: {
     calResult() {
-      if (this.cal_type === 1) {
+      if (this.cal_type === "+") {
         this.result = Number(this.value1) + Number(this.value2);
-      } else if (this.cal_type === 2) {
+      } else if (this.cal_type === "-") {
         this.result = Number(this.value1) - Number(this.value2);
-      } else if (this.cal_type === 3) {
+      } else if (this.cal_type === "x") {
         this.result = Number(this.value1) * Number(this.value2);
-      } else if (this.cal_type === 4) {
+      } else if (this.cal_type === "/") {
         this.result = Number(this.value1) / Number(this.value2);
-      } else if (this.cal_type === 5) {
+      } else if (this.cal_type === "%") {
         this.result = Number(this.value1) % Number(this.value2);
       }
     },

@@ -1,15 +1,14 @@
 {
   "name": "dev-tool",
   "description": "a dev-tool for chrome extension",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "manifest_version": 3,
   "permissions": [
     "alarms", 
     "notifications",
     "webRequest",
 		"storage",
-    "nativeMessaging",
-    "http://*/"
+    "nativeMessaging"
   ],
   "background": {
     "service_worker": "js/background.js"

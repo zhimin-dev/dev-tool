@@ -44,7 +44,7 @@
 <script>
 import jsonFormate from "../utils/json-format";
 import { jsonToGo } from "../utils/json-to-go";
-
+import { structStrToJson } from "../utils/go/structToJson";
 export default {
   props: {
     isFull: Boolean,
@@ -68,6 +68,10 @@ export default {
           type: 3,
           name: "json转table (输入json数组)",
         },
+        // {
+        //   type: 4,
+        //   name: "go struct to json",
+        // },
       ],
     };
   },
@@ -83,8 +87,15 @@ export default {
         } else if (mode === 3) {
           this.nowMode = 3;
           this.doJsonToTable();
+        } else if (mode === 4) {
+          this.nowMode = 4;
+          this.doGoStructToJson();
         }
       }
+    },
+    doGoStructToJson() {
+      const goObj = structStrToJson(this.userInputJson);
+      this.showJson = goObj.go;
     },
     doJsonFormat(type) {
       let obj;
