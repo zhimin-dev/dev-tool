@@ -26,22 +26,25 @@
         v-if="nowMode === 1 || nowMode === 2"
       ></el-input>
       <table border="1" v-if="tableList.length > 0 && nowMode === 3">
-        <tr>
-          <th></th>
-          <th v-for="(v, k) in tableList[0]" :key="k">{{ k }}</th>
-        </tr>
-        <tr v-for="(v, k) in tableList" :key="k">
-          <td>{{ k }}</td>
-          <td v-for="(x, xk) in v" :key="xk">
-            {{ x }}
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <th></th>
+            <th v-for="(v, k) in tableList[0]" :key="k">{{ k }}</th>
+          </tr>
+          <tr v-for="(v, k) in tableList" :key="k">
+            <td>{{ k }}</td>
+            <td v-for="(x, xk) in v" :key="xk">
+              {{ x }}
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
 import jsonFormate from "../utils/json-format";
 import { jsonToGo } from "../utils/json-to-go";
 import { structStrToJson } from "../utils/go/structToJson";
@@ -102,7 +105,7 @@ export default {
       try {
         obj = JSON.parse(this.userInputJson);
       } catch (e) {
-        this.$message.error("json转换失败");
+        ElMessage.error("json转换失败");
         return;
       }
       this.showJson = jsonFormate(obj, type);
@@ -116,7 +119,7 @@ export default {
         this.tableList = JSON.parse(this.userInputJson);
         console.log(this.tableList);
       } catch (e) {
-        this.$message.error("json转换失败");
+        ElMessage.error("json转换失败");
       }
     },
   },

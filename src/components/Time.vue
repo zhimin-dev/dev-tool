@@ -32,6 +32,7 @@
   </div>
 </template>
 <script>
+import { ElMessage } from "element-plus";
 const lastTimStr = "time:last:showTime";
 const copyFromClipboard = "time:copy:clipboard";
 
@@ -61,7 +62,7 @@ export default {
             if (parseInt(res) == res) {
               this.nowTime = res;
               this.unixtimestampToTimeStr();
-              this.$message("从剪贴板获取时间戳");
+              ElMessage("从剪贴板获取时间戳");
             }
             localStorage.setItem(copyFromClipboard, res);
           }
@@ -118,7 +119,7 @@ export default {
             `${rows[1]}-${rows[2]}-${rows[3]} ${rows[4]}:${rows[5]}:${rows[6]}`
           ).getTime() / 1000;
       } else {
-        this.$message.error("解析失败");
+        ElMessage.error("解析失败");
       }
     },
     changeShowTime() {

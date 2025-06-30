@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
 import axios from "axios";
 
 export default {
@@ -127,7 +128,7 @@ export default {
           }
         })
         .catch((err) => {
-          this.$message.error(err);
+          ElMessage.error(err);
         });
     },
   },

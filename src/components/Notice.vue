@@ -47,6 +47,7 @@
   </div>
 </template>
 <script>
+import { ElMessage } from "element-plus";
 export default {
   data() {
     return {
@@ -135,7 +136,7 @@ export default {
       for (const key in checkExistTime) {
         if (checkExistTime[key] > 1) {
           checkOk = false;
-          this.$message.error("时间有重复，请检查");
+          ElMessage.error("时间有重复，请检查");
         }
       }
       if (!checkOk) {
