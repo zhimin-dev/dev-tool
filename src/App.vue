@@ -101,7 +101,7 @@ export default {
   color: #2c3e50;
 }
 .fixedWidth {
-  width: 800px;
+  width: 780px;
 }
 .fullWidth {
   width: 100%;

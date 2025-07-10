@@ -9,42 +9,32 @@
     </el-input>
     <div class="btn-container">
       <div class="btn-item">
-        <el-button class="one-btn" size="mini" @click="urlEncode"
-          >UrlEncode</el-button
-        >
-        <el-button class="one-btn" size="mini" @click="urlDecode"
-          >UrlDecode</el-button
-        >
+        <el-button class="one-btn" @click="urlEncode">UrlEncode</el-button>
+        <el-button class="one-btn" @click="urlDecode">UrlDecode</el-button>
       </div>
       <div class="btn-item">
-        <el-button class="one-btn" size="mini" @click="base64Encode"
+        <el-button class="one-btn" @click="base64Encode"
           >base64Encode</el-button
         >
-        <el-button class="one-btn" size="mini" @click="base64Decode"
+        <el-button class="one-btn" @click="base64Decode"
           >base64Decode</el-button
         >
       </div>
       <div class="btn-item">
-        <el-button class="one-btn" size="mini" @click="cnToUtf8"
-          >中文转UTF-8</el-button
-        >
-        <el-button class="one-btn" size="mini" @click="utf8ToCn"
-          >UTF-8转中文</el-button
-        >
+        <el-button class="one-btn" @click="cnToUtf8">中文转UTF-8</el-button>
+        <el-button class="one-btn" @click="utf8ToCn">UTF-8转中文</el-button>
       </div>
       <div class="btn-item">
-        <el-button class="one-btn" size="mini" @click="cnToUnicode"
+        <el-button class="one-btn" @click="cnToUnicode"
           >中文转Unicode</el-button
         >
-        <el-button class="one-btn" size="mini" @click="unicodeToCn"
+        <el-button class="one-btn" @click="unicodeToCn"
           >Unicode转中文</el-button
         >
       </div>
       <div class="btn-item">
-        <el-button class="one-btn" size="mini" @click="md5Fun">MD5</el-button>
-        <el-button class="one-btn" size="mini" @click="calLength"
-          >字符串长度</el-button
-        >
+        <el-button class="one-btn" @click="md5Fun">MD5</el-button>
+        <el-button class="one-btn" @click="calLength">字符串长度</el-button>
       </div>
     </div>
     <div>

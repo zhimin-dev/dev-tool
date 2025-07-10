@@ -1,7 +1,12 @@
 <template>
   <div class="sim-conatiner">
     <div class="sim-url">
-      <el-select class="url-c" v-model="request_type" placeholder="请选择">
+      <el-select
+        class="url-c"
+        style="width: 130px"
+        v-model="request_type"
+        placeholder="请选择"
+      >
         <el-option
           v-for="(value, index) in request_type_list"
           :key="index"
@@ -27,9 +32,7 @@
     <div
       style="display: flex; align-items: baseline; flex-direction: row-reverse"
     >
-      <el-button size="mini" type="primary" circle @click="addHeader"
-        >+</el-button
-      >
+      <el-button type="primary" circle @click="addHeader">+</el-button>
       <el-table :data="headers" style="width: 100%">
         <el-table-column label="KEY">
           <template slot-scope="scope">
@@ -49,11 +52,7 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button
-              @click="deleteThisHeader(scope.$index)"
-              size="mini"
-              circle
-            >
+            <el-button @click="deleteThisHeader(scope.$index)" circle>
               -
             </el-button>
           </template>

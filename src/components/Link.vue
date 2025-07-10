@@ -7,21 +7,18 @@
       <div v-if="!showExport">
         <el-button
           icon="el-icon-edit"
-          size="mini"
           v-if="nowType !== 0"
           @click="cancelLinkFun"
           >取消</el-button
         >
         <el-button
           icon="el-icon-success"
-          size="mini"
           @click="saveLinkFun"
           v-if="nowType === 1"
           >保存</el-button
         >
         <el-button
           icon="el-icon-edit"
-          size="mini"
           v-if="linkList.length > 0 && nowType === 0"
           @click="editLinkFun"
           >添加/编辑</el-button
@@ -31,10 +28,10 @@
         style="margin-left: 20px"
         v-if="linkList.length > 0 && nowType === 0"
       >
-        <el-button icon="el-icon-s-operation" size="mini" @click="importJsonFun"
+        <el-button icon="el-icon-s-operation" @click="importJsonFun"
           >导入链接</el-button
         >
-        <el-button icon="el-icon-s-operation" size="mini" @click="exportJsonFun"
+        <el-button icon="el-icon-s-operation" @click="exportJsonFun"
           >导出链接</el-button
         >
       </div>
@@ -55,7 +52,6 @@
       <el-table-column label="链接名">
         <template slot-scope="scope">
           <el-input
-            size="mini"
             v-model="scope.row.title"
             placeholder="请输入标题"
           ></el-input>
@@ -63,11 +59,7 @@
       </el-table-column>
       <el-table-column label="url">
         <template slot-scope="scope">
-          <el-input
-            size="mini"
-            v-model="scope.row.url"
-            placeholder="请输入链接"
-          ></el-input>
+          <el-input v-model="scope.row.url" placeholder="请输入链接"></el-input>
         </template>
       </el-table-column>
       <el-table-column width="90" label="操作" v-if="showDelete">
@@ -81,9 +73,7 @@
     <div v-if="showExport || showImport" class="import-area">
       <el-input type="textarea" autosize="true" v-model="exportJson">
       </el-input>
-      <el-button size="mini" v-if="showImport" @click="doImport"
-        >点击导入</el-button
-      >
+      <el-button v-if="showImport" @click="doImport">点击导入</el-button>
     </div>
   </div>
 </template>

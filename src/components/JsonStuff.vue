@@ -11,7 +11,6 @@
     <div class="or-json">
       <el-button
         v-for="(value, index) in mode"
-        size="mini"
         :key="index"
         @click="doConvert(value.type)"
         >{{ value.name }}</el-button

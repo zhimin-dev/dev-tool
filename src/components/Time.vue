@@ -9,21 +9,19 @@
     <div class="time">
       <el-input
         v-model="nowTime"
-        size="mini"
         class="now-time"
         placeholder="当前时间戳"
       ></el-input>
       <div class="now-time">
-        <el-button size="mini" @click="this.unixtimestampToTimeStr"
+        <el-button @click="this.unixtimestampToTimeStr"
           >时间戳转字符串 ⬇️
         </el-button>
-        <el-button size="mini" @click="this.timeStrToUnixtimestamp"
+        <el-button @click="this.timeStrToUnixtimestamp"
           >字符串转时间戳 ⬆️
         </el-button>
       </div>
       <el-input
         v-model="showTime"
-        size="mini"
         class="now-time"
         placeholder="当前时间"
         @change="changeShowTime"
@@ -150,7 +148,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   padding-right: 10px;
-  width: 300px;
   margin-bottom: 10px;
 }
 </style>
