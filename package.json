@@ -9,6 +9,7 @@
     "build-local": "node js/build_package.js && vite build && mkdir -p dist/js && cp -r js/ dist/js/ && cp manifest.json dist/manifest.json"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "axios": "^0.21.0",
     "element-plus": "^2.6.1",
     "js-md5": "^0.7.3",

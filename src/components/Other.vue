@@ -4,12 +4,8 @@
       <el-table-column prop="name" label="名称"> </el-table-column>
       <el-table-column label="链接">
         <template slot-scope="scope">
-          <el-button
-            @click="goTo(scope.row.url)"
-            type="text"
-            size="small"
-            v-text="scope.row.url"
-          >
+          <el-button @click="goTo(scope.row.url)" type="text" size="small">
+            {{ scope.row.url }}
           </el-button>
         </template>
       </el-table-column>

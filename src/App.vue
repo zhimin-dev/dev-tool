@@ -5,7 +5,7 @@
         <div class="normal-container">
           <div class="normal-item">
             <div class="normal-title">时间处理</div>
-            <Time />
+            <XTime />
           </div>
           <div class="normal-item">
             <div class="normal-title">计算器</div>
@@ -17,13 +17,13 @@
           </div>
           <div class="normal-item">
             <div class="normal-title">链接</div>
-            <Link hideMenuBar="true" />
+            <XLink hideMenuBar="true" />
           </div>
         </div>
       </el-tab-pane>
       <el-tab-pane label="提醒" name="link"><Notice /></el-tab-pane>
       <el-tab-pane label="链接" name="notice"
-        ><Link hideMenuBar="false"
+        ><XLink hideMenuBar="false"
       /></el-tab-pane>
       <el-tab-pane label="模拟请求" v-if="isFull" name="sim"
         ><Sim
@@ -42,12 +42,12 @@
 </template>
 
 <script>
-import Time from "./components/Time.vue";
+import XTime from "./components/Time.vue";
 import Decode from "./components/Decode.vue";
 import Cal from "./components/Cal.vue";
 import Sim from "./components/Sim.vue";
 import HtmlShow from "./components/Html.vue";
-import Link from "./components/Link.vue";
+import XLink from "./components/Link.vue";
 import SqlToModel from "./components/SqlToModel.vue";
 import Notice from "./components/Notice.vue";
 import JsonStuff from "./components/JsonStuff.vue";
@@ -64,6 +64,7 @@ export default {
   },
   created() {
     let item = localStorage.getItem(lastClickTabStorage);
+    console.log("created", item);
     if (item !== "" && item !== null) {
       this.nowType = item;
     }
@@ -74,17 +75,18 @@ export default {
     }
   },
   methods: {
-    changeTab() {
+    changeTab(tab) {
+      this.nowType = tab.props.name;
       localStorage.setItem(lastClickTabStorage, this.nowType);
     },
   },
   components: {
-    Time,
+    XTime,
     Decode,
     Cal,
     Sim,
     HtmlShow,
-    Link,
+    XLink,
     SqlToModel,
     Notice,
     JsonStuff,

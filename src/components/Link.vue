@@ -18,7 +18,7 @@
           >保存</el-button
         >
         <el-button
-          icon="el-icon-edit"
+          icon="el-icon--EditPen"
           v-if="linkList.length > 0 && nowType === 0"
           @click="editLinkFun"
           >添加/编辑</el-button
@@ -50,7 +50,7 @@
     </div>
     <el-table v-if="mode == 1" :data="linkList" style="width: 100%">
       <el-table-column label="链接名">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-input
             v-model="scope.row.title"
             placeholder="请输入标题"
@@ -58,14 +58,14 @@
         </template>
       </el-table-column>
       <el-table-column label="url">
-        <template slot-scope="scope">
+        <template #default="scope">
           <el-input v-model="scope.row.url" placeholder="请输入链接"></el-input>
         </template>
       </el-table-column>
-      <el-table-column width="90" label="操作" v-if="showDelete">
-        <template slot-scope="scope">
+      <el-table-column width="90" label="操作">
+        <template #default="scope">
           <div @click="deleteRowFun(scope.$index)" style="cursor: pointer">
-            <i class="el-icon-delete"></i>
+            <span>删除</span>
           </div>
         </template>
       </el-table-column>
@@ -105,7 +105,17 @@ export default {
     const res = localStorage.getItem("linkUrl");
     if (res !== undefined && res !== null && res !== "") {
       try {
-        this.linkList = JSON.parse(res);
+        const parsedData = JSON.parse(res);
+        if (Array.isArray(parsedData)) {
+          // 过滤掉无效的对象
+          this.linkList = parsedData.filter(
+            (item) =>
+              item &&
+              typeof item === "object" &&
+              item.title !== undefined &&
+              item.url !== undefined
+          );
+        }
       } catch (e) {
         console.log(e);
       }
@@ -122,7 +132,7 @@ export default {
         const list = JSON.parse(row);
         for (let i = 0; i < list.length; i += 1) {
           if (list[i].url !== undefined && list[i].title !== undefined) {
-            this.linkList.push(this.setObj(list[i].title, list[i].url, true));
+            this.linkList.push(this.setObj(list[i].title, list[i].url));
           }
         }
         this.saveLink();
