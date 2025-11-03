@@ -28,16 +28,10 @@
       <el-tab-pane label="模拟请求" v-if="isFull" name="sim"
         ><Sim
       /></el-tab-pane>
-      <el-tab-pane label="JsonStuff" name="jsonStuff"
+      <el-tab-pane label="数据处理" name="jsonStuff"
         ><JsonStuff :isFull="isFull"
       /></el-tab-pane>
-      <el-tab-pane label="SqlToModel" name="sqlToModel"
-        ><SqlToModel
-      /></el-tab-pane>
-      <el-tab-pane label="HtmlShow" v-if="isFull" name="HtmlShow"
-        ><HtmlShow
-      /></el-tab-pane>
-      <el-tab-pane label="extractData" name="extractData"
+      <el-tab-pane label="表格数据提取" name="extractData"
         ><ExtractData
       /></el-tab-pane>
     </el-tabs>
@@ -49,7 +43,6 @@ import XTime from "./components/Time.vue";
 import Decode from "./components/Decode.vue";
 import Cal from "./components/Cal.vue";
 import Sim from "./components/Sim.vue";
-import HtmlShow from "./components/Html.vue";
 import ExtractData from "./components/ExtractData.vue";
 import XLink from "./components/Link.vue";
 import SqlToModel from "./components/SqlToModel.vue";
@@ -89,7 +82,6 @@ export default {
     Decode,
     Cal,
     Sim,
-    HtmlShow,
     XLink,
     SqlToModel,
     Notice,

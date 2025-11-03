@@ -4,7 +4,7 @@
       <el-input
         type="textarea"
         rows="4"
-        placeholder="请输入json"
+        placeholder="请输入字符串"
         v-model="userInputJson"
       ></el-input>
     </div>
@@ -22,7 +22,8 @@
         placeholder="显示的json"
         v-model="showJson"
         :autosize="true"
-        v-if="nowMode === 1 || nowMode === 2 || nowMode === 4"
+        size="small"
+        v-if="nowMode === 1 || nowMode === 2 || nowMode === 4 || nowMode === 6"
       ></el-input>
       <table border="1" v-if="tableList.length > 0 && nowMode === 3">
         <tbody>
@@ -39,6 +40,7 @@
         </tbody>
       </table>
     </div>
+    <div v-html="showJson" class="show-html" v-if="nowMode === 5"></div>
   </div>
 </template>
 
@@ -46,6 +48,7 @@
 import { ElMessage } from "element-plus";
 import jsonFormate from "../utils/json-format";
 import { jsonToGo } from "../utils/json-to-go";
+import { sqlStrToGoTemplate } from "../utils/go/common";
 import { parseGoStructToJson } from "../utils/go/structToJson";
 export default {
   props: {
@@ -74,6 +77,14 @@ export default {
           type: 4,
           name: "go struct to json",
         },
+        {
+          type: 5,
+          name: "展示html",
+        },
+        {
+          type: 6,
+          name: "sql2GoModel",
+        },
       ],
     };
   },
@@ -92,6 +103,12 @@ export default {
         } else if (mode === 4) {
           this.nowMode = 4;
           this.doGoStructToJson();
+        } else if (mode === 5) {
+          this.nowMode = 5;
+          this.showJson = this.userInputJson;
+        } else if (mode === 6) {
+          this.nowMode = 6;
+          this.showJson = sqlStrToGoTemplate(this.userInputJson);
         }
       }
     },
@@ -157,5 +174,11 @@ export default {
 .full-width .show-json {
   width: 48%;
   padding-top: 0;
+}
+.show-html {
+  overflow: hidden;
+}
+.show-html img {
+  max-height: 300px !important;
 }
 </style>

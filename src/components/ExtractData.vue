@@ -1,18 +1,24 @@
 <template>
   <div class="json-container">
     <div class="or-json">
-      <el-input
-        type="input"
-        placeholder="请输入表格的选择器，如#tableId .className"
-        v-model="tableSelector"
-      ></el-input>
-      <el-input
-        type="input"
-        placeholder="请输入需要的列，如0,1,2,3"
-        v-model="columnIndices"
-      ></el-input>
-      <button @click="showTable">获取表格</button>
-      <button @click="exportTable">导出当前表格</button>
+      <div style="display: flex; margin-bottom: 10px">
+        <el-input
+          type="input"
+          placeholder="请输入表格的选择器，如#tableId .className"
+          v-model="tableSelector"
+          style="width: 200px; margin-right: 10px"
+        ></el-input>
+        <el-input
+          type="input"
+          placeholder="请输入需要的列，如0,1,2,3"
+          v-model="columnIndices"
+          style="width: 200px"
+        ></el-input>
+      </div>
+      <div style="display: flex">
+        <el-button @click="showTable">获取表格</el-button>
+        <el-button @click="exportTable">导出当前表格</el-button>
+      </div>
       <div>
         <el-table
           v-if="showList.length > 0"
