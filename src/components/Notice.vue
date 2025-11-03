@@ -1,7 +1,9 @@
 <template>
   <div class="notice-container">
     <div style="margin-bottom: 10px; display: flex; justify-content: flex-end">
-      <el-button @click="editForm" v-if="disabledInput">编辑</el-button>
+      <el-button @click="editForm" v-if="disabledInput">
+        <el-icon><Edit /></el-icon>编辑
+      </el-button>
       <el-button @click="editFormCancel" v-if="!disabledInput">取消</el-button>
       <el-button @click="editFormSave" v-if="!disabledInput">保存</el-button>
     </div>

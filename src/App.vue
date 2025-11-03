@@ -45,7 +45,6 @@ import Cal from "./components/Cal.vue";
 import Sim from "./components/Sim.vue";
 import ExtractData from "./components/ExtractData.vue";
 import XLink from "./components/Link.vue";
-import SqlToModel from "./components/SqlToModel.vue";
 import Notice from "./components/Notice.vue";
 import JsonStuff from "./components/JsonStuff.vue";
 
@@ -83,7 +82,6 @@ export default {
     Cal,
     Sim,
     XLink,
-    SqlToModel,
     Notice,
     JsonStuff,
     ExtractData,
