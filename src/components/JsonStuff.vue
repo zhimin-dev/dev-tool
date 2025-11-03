@@ -22,7 +22,7 @@
         placeholder="显示的json"
         v-model="showJson"
         :autosize="true"
-        v-if="nowMode === 1 || nowMode === 2"
+        v-if="nowMode === 1 || nowMode === 2 || nowMode === 4"
       ></el-input>
       <table border="1" v-if="tableList.length > 0 && nowMode === 3">
         <tbody>
@@ -46,7 +46,7 @@
 import { ElMessage } from "element-plus";
 import jsonFormate from "../utils/json-format";
 import { jsonToGo } from "../utils/json-to-go";
-import { structStrToJson } from "../utils/go/structToJson";
+import { parseGoStructToJson } from "../utils/go/structToJson";
 export default {
   props: {
     isFull: Boolean,
@@ -70,10 +70,10 @@ export default {
           type: 3,
           name: "json转table (输入json数组)",
         },
-        // {
-        //   type: 4,
-        //   name: "go struct to json",
-        // },
+        {
+          type: 4,
+          name: "go struct to json",
+        },
       ],
     };
   },
@@ -96,8 +96,11 @@ export default {
       }
     },
     doGoStructToJson() {
-      const goObj = structStrToJson(this.userInputJson);
-      this.showJson = goObj.go;
+      const goObj = parseGoStructToJson(this.userInputJson);
+      let str = JSON.stringify(goObj, null, 2);
+      console.log("---111----", str);
+      this.showJson = str;
+      console.log("---222----", this.showJson);
     },
     doJsonFormat(type) {
       let obj;

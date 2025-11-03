@@ -8,7 +8,9 @@
     "notifications",
     "webRequest",
 		"storage",
-    "nativeMessaging"
+    "nativeMessaging",
+    "activeTab",
+    "scripting"
   ],
   "background": {
     "service_worker": "js/background.js"

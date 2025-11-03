@@ -34,7 +34,11 @@
       </div>
       <div class="btn-item">
         <el-button class="one-btn" @click="md5Fun">MD5</el-button>
-        <el-button class="one-btn" @click="calLength">字符串长度</el-button>
+        <el-button class="one-btn" @click="calLength">length</el-button>
+      </div>
+      <div class="btn-item">
+        <el-button class="one-btn" @click="upperCase">upperCase</el-button>
+        <el-button class="one-btn" @click="lowerCase">lowerCase</el-button>
       </div>
     </div>
     <div>
@@ -59,6 +63,18 @@ export default {
     };
   },
   methods: {
+    upperCase() {
+      if (this.originalText === "") {
+        return;
+      }
+      this.outputText = this.originalText.toUpperCase();
+    },
+    lowerCase() {
+      if (this.originalText === "") {
+        return;
+      }
+      this.outputText = this.originalText.toLowerCase();
+    },
     urlEncode() {
       if (this.originalText === "") {
         return;

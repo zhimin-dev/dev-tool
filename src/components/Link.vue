@@ -5,34 +5,31 @@
       v-if="hideMenuBar === 'false'"
     >
       <div v-if="!showExport">
-        <el-button
-          icon="el-icon-edit"
-          v-if="nowType !== 0"
-          @click="cancelLinkFun"
-          >取消</el-button
+        <el-button v-if="nowType !== 0" @click="cancelLinkFun"
+          ><el-icon><Close /></el-icon>取消</el-button
         >
         <el-button
           icon="el-icon-success"
           @click="saveLinkFun"
           v-if="nowType === 1"
-          >保存</el-button
+          ><el-icon><Plus /></el-icon>保存</el-button
         >
         <el-button
-          icon="el-icon--EditPen"
           v-if="linkList.length > 0 && nowType === 0"
           @click="editLinkFun"
-          >添加/编辑</el-button
+        >
+          <el-icon> <Edit /> </el-icon>添加/编辑</el-button
         >
       </div>
       <div
         style="margin-left: 20px"
         v-if="linkList.length > 0 && nowType === 0"
       >
-        <el-button icon="el-icon-s-operation" @click="importJsonFun"
-          >导入链接</el-button
+        <el-button @click="importJsonFun"
+          ><el-icon><Operation /></el-icon>导入链接</el-button
         >
-        <el-button icon="el-icon-s-operation" @click="exportJsonFun"
-          >导出链接</el-button
+        <el-button @click="exportJsonFun"
+          ><el-icon><Promotion /></el-icon>导出链接</el-button
         >
       </div>
     </div>
@@ -65,7 +62,9 @@
       <el-table-column width="90" label="操作">
         <template #default="scope">
           <div @click="deleteRowFun(scope.$index)" style="cursor: pointer">
-            <span>删除</span>
+            <el-icon>
+              <Delete />
+            </el-icon>
           </div>
         </template>
       </el-table-column>

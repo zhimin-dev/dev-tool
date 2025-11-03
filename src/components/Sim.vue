@@ -16,8 +16,8 @@
         </el-option>
       </el-select>
       <el-input class="url-c" v-model="url" placeholder="请输入URL"> </el-input>
-      <el-button type="primary" icon="el-icon-search" @click="doSend">
-        发送
+      <el-button type="primary" @click="doSend">
+        <el-icon><Promotion /></el-icon>发送
       </el-button>
     </div>
     <div v-if="request_type === 'POST'">

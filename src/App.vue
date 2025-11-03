@@ -37,6 +37,9 @@
       <el-tab-pane label="HtmlShow" v-if="isFull" name="HtmlShow"
         ><HtmlShow
       /></el-tab-pane>
+      <el-tab-pane label="extractData" name="extractData"
+        ><ExtractData
+      /></el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -47,6 +50,7 @@ import Decode from "./components/Decode.vue";
 import Cal from "./components/Cal.vue";
 import Sim from "./components/Sim.vue";
 import HtmlShow from "./components/Html.vue";
+import ExtractData from "./components/ExtractData.vue";
 import XLink from "./components/Link.vue";
 import SqlToModel from "./components/SqlToModel.vue";
 import Notice from "./components/Notice.vue";
@@ -90,6 +94,7 @@ export default {
     SqlToModel,
     Notice,
     JsonStuff,
+    ExtractData,
   },
 };
 </script>
