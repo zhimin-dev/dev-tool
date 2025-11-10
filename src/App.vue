@@ -29,10 +29,10 @@
         ><Sim
       /></el-tab-pane>
       <el-tab-pane label="数据处理" name="jsonStuff"
-        ><JsonStuff :isFull="isFull"
+        ><DataHandle :isFull="isFull"
       /></el-tab-pane>
       <el-tab-pane label="表格数据提取" name="extractData"
-        ><ExtractData
+        ><TableExtractData
       /></el-tab-pane>
     </el-tabs>
   </div>
@@ -43,10 +43,10 @@ import XTime from "./components/Time.vue";
 import Decode from "./components/Decode.vue";
 import Cal from "./components/Cal.vue";
 import Sim from "./components/Sim.vue";
-import ExtractData from "./components/ExtractData.vue";
+import TableExtractData from "./components/TableExtractData.vue";
 import XLink from "./components/Link.vue";
 import Notice from "./components/Notice.vue";
-import JsonStuff from "./components/JsonStuff.vue";
+import DataHandle from "./components/DataHandle.vue";
 
 const lastClickTabStorage = "last:click";
 
@@ -83,8 +83,8 @@ export default {
     Sim,
     XLink,
     Notice,
-    JsonStuff,
-    ExtractData,
+    TableExtractData,
+    DataHandle,
   },
 };
 </script>

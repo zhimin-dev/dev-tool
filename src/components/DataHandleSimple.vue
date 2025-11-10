@@ -1,17 +1,16 @@
 <template>
   <div class="json-container">
-    <div class="or-json">
+    <div class="or-json" style="margin-bottom: 5px">
       <el-input
         type="textarea"
-        rows="4"
+        :rows="4"
         placeholder="请输入字符串"
         v-model="userInputJson"
       ></el-input>
     </div>
-    <div class="or-json">
+    <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px">
       <el-button
         v-for="(value, index) in mode"
-        size="mini"
         :key="index"
         style="margin-bottom: 3px"
         @click="doConvert(value.type)"
@@ -52,6 +51,7 @@ import jsonFormate from "../utils/json-format";
 import { jsonToGo } from "../utils/json-to-go";
 import { sqlStrToGoTemplate } from "../utils/go/common";
 import { parseGoStructToJson } from "../utils/go/structToJson";
+import { isArray } from "element-plus/es/utils/types.mjs";
 export default {
   props: {
     isFull: Boolean,
@@ -117,9 +117,7 @@ export default {
     doGoStructToJson() {
       const goObj = parseGoStructToJson(this.userInputJson);
       let str = JSON.stringify(goObj, null, 2);
-      console.log("---111----", str);
       this.showJson = str;
-      console.log("---222----", this.showJson);
     },
     doJsonFormat(type) {
       let obj;

@@ -4,13 +4,13 @@
       <div style="display: flex; margin-bottom: 10px">
         <el-input
           type="input"
-          placeholder="请输入表格的选择器，如#tableId .className"
+          placeholder="输入表格的选择器,如tbody.className"
           v-model="tableSelector"
-          style="width: 200px; margin-right: 10px"
+          style="width: 300px; margin-right: 10px"
         ></el-input>
         <el-input
           type="input"
-          placeholder="请输入需要的列，如0,1,2,3"
+          placeholder="请输入需要的列,如0,1,2,3"
           v-model="columnIndices"
           style="width: 200px"
         ></el-input>
@@ -48,30 +48,19 @@ export default {
   },
   data() {
     return {
-      columnIndices: "",
-      tableSelector: "table",
+      columnIndices: "0,1,2",
+      tableSelector: "tbody",
       showList: [],
     };
   },
   methods: {
-    getTableData(selector, columnIndices) {
-      const table = document.querySelector(selector); // 使用传入的选择器
-      console.log("getTableData", table, selector, columnIndices);
-      if (!table) return null; // 如果未找到表格，返回 null
-
-      const rows = Array.from(table.querySelectorAll("tbody tr"));
-      const data = rows.map((row) => {
-        const cols = Array.from(row.querySelectorAll("td, th"));
-        // 提取指定的列
-        return columnIndices
-          .filter((index) => index >= 0 && index < cols.length) // 过滤有效的列索引
-          .map((index) => cols[index].innerText); // 返回有效列的数据
-      });
-
-      return data.filter((row) => row.length > 0); // 过滤掉空行
-    },
     async handleTable(handleType) {
-      console.log("handleTable", this.tableSelector, this.columnIndices);
+      console.log(
+        "handleTable",
+        this.iframeSelector,
+        this.tableSelector,
+        this.columnIndices
+      );
       if (this.tableSelector === "") {
         alert("请指定表格选择器");
         return;
@@ -99,8 +88,8 @@ export default {
       chrome.scripting.executeScript(
         {
           target: { tabId: tab.id },
-          func: function (selector, columnIndices) {
-            const table = document.querySelector(selector);
+          func: function (tableSelector, columnIndices) {
+            const table = document.querySelector(tableSelector);
             if (!table) return null;
 
             const rows = Array.from(table.querySelectorAll("tbody tr"));
@@ -117,6 +106,7 @@ export default {
         },
         (injectionResults) => {
           const [{ result: tableData }] = injectionResults;
+          console.log("injectionResults", injectionResults, tableData);
           if (tableData) {
             if (handleType === "show") {
               this.showList = tableData;

@@ -35,7 +35,7 @@
       <el-button type="primary" circle @click="addHeader">+</el-button>
       <el-table :data="headers" style="width: 100%">
         <el-table-column label="KEY">
-          <template slot-scope="scope">
+          <template #default="scope">
             <el-input
               v-model="scope.row.key"
               placeholder="请输入内容"
@@ -43,7 +43,7 @@
           </template>
         </el-table-column>
         <el-table-column label="VALUE">
-          <template slot-scope="scope">
+          <template #default="scope">
             <el-input
               v-model="scope.row.value"
               placeholder="请输入内容"
