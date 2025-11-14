@@ -1,11 +1,11 @@
 <template>
   <div class="json-container">
     <el-radio-group v-model="handleDataMode" style="margin-bottom: 5px">
-      <el-radio-button label="普通数据处理"></el-radio-button>
+      <el-radio-button label="简单数据处理"></el-radio-button>
       <el-radio-button label="复杂数据处理"></el-radio-button>
     </el-radio-group>
 
-    <div v-if="handleDataMode === '普通数据处理'" style="margin-bottom: 5px">
+    <div v-if="handleDataMode === '简单数据处理'" style="margin-bottom: 5px">
       <DataHandleSimple />
     </div>
     <div v-else>
@@ -17,12 +17,6 @@
 <script>
 import DataHandleComplex from "./DataHandleComplex.vue";
 import DataHandleSimple from "./DataHandleSimple.vue";
-import { ElMessage } from "element-plus";
-import jsonFormate from "../utils/json-format";
-import { jsonToGo } from "../utils/json-to-go";
-import { sqlStrToGoTemplate } from "../utils/go/common";
-import { parseGoStructToJson } from "../utils/go/structToJson";
-import { isArray } from "element-plus/es/utils/types.mjs";
 export default {
   props: {
     isFull: Boolean,
@@ -33,7 +27,7 @@ export default {
   },
   data() {
     return {
-      handleDataMode: "复杂数据处理",
+      handleDataMode: "简单数据处理",
     };
   },
   methods: {},

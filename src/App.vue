@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="{ fixedWidth: true }">
+  <div id="app" :class="{ fixedWidth: !isFull }">
     <el-tabs v-model="nowType" @tab-click="changeTab">
       <el-tab-pane label="常用" name="normal">
         <div class="normal-container">
